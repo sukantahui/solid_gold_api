@@ -12,7 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->validateCsrfTokens(except: [
+            'http://localhost/solid_gold/solid_gold_api/public/api/*',
+            'api/*'
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

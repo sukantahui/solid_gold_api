@@ -58,7 +58,8 @@ class AuthController extends Controller
             // Generate a new token for API authentication (Using Laravel Sanctum)
             $token = $user->createToken('auth_token')->plainTextToken;
             $userResource = new UserResource($user);
-            return ResponseHelper::success('success','login successfully',array('user'=>$userResource,'token'=>$token),200);
+            // return ResponseHelper::success('success','login successfully',array('user'=>$userResource,'token'=>$token),200);
+            return ResponseHelper::success('success','login successfully',$token,200);
         }catch(Exception $e){
             return ResponseHelper::error($e->getMessage());
         }
