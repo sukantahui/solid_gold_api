@@ -22,18 +22,27 @@ class DatabaseSeeder extends Seeder
         UserType::insert([
             ['user_type_name' => 'Admin'],
             ['user_type_name' => 'Developer'],
+            ['user_type_name' => 'Owner'],
             ['user_type_name' => 'Manager'],
+            ['user_type_name' => 'Manager Production'],
+            ['user_type_name' => 'Manager Sale'],
+            ['user_type_name' => 'Worker'],
         ]);
 
         Department::insert([
-            ['department_name' => 'General'],
-            ['depatment_name' => 'Sales'],
-            ['depatment_name' => 'Production'],
-            ['depatment_name' => 'Worker'],
+            ['department_name' => 'Administration'],
+            ['depatment_name' => 'Development'],
+            ['depatment_name' => 'Ownership'],
+            ['depatment_name' => 'Office'],
         ]);
         Designation::insert([
+            ['designation_name' => 'Administrator'],
+            ['designation_name' => 'Developer'],
             ['designation_name' => 'Owner'],
-            ['designation_name' => 'Gen. Worker'],
+            ['designation_name' => 'Manager'],
+            ['designation_name' => 'Manager Production'],
+            ['designation_name' => 'Manager Sale'],
+            ['designation_name' => 'Worker'],
         ]);
         Employee::insert([
             ['employee_nme'=>'Vivekanada','mobile'=>'9836444999','email'=>'bangle312@gmail.com','department_id' => 1, 'designation_id' => 1]

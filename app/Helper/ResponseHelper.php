@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Helper;
-
 class ResponseHelper
 {
     /**
@@ -18,12 +17,11 @@ class ResponseHelper
             "data" => $data
         ],$statusCode);
     }
-    public static function error($status='error',$message=null,$data=[], $statusCode=400){
+    public static function error($message=null,$data=null, $statusCode=400){
         return response()->json([
-            "status" => $status,
+            "status" => 'error',
             "message" => $message?? "error in program",
-            "data" => $data
+            "data" => $data?? null
         ],$statusCode);
     }
-
 }

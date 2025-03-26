@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\DB;
 
 
 class AuthController extends Controller
@@ -45,6 +46,12 @@ class AuthController extends Controller
     }
 
     public function login(LoginRequest $request){
+        //to check database connection is active or not
+        try {
+            DB::connection()->getPdo();
+        } catch (\Exception $e) {
+            return ResponseHelper::error($e->getMessage(),null,503);;
+        }
 
         try{
             // Attempt to authenticate the user
@@ -59,9 +66,9 @@ class AuthController extends Controller
             $token = $user->createToken('auth_token')->plainTextToken;
             $userResource = new UserResource($user);
             // return ResponseHelper::success('success','login successfully',array('user'=>$userResource,'token'=>$token),200);
-            return ResponseHelper::success('success','login successfully',$token,200);
+            return ResponseHelper::success('success','login successfully',array('user'=>new UserResource($user),'token'=>$token),200);
         }catch(Exception $e){
-            return ResponseHelper::error($e->getMessage());
+            return ResponseHelper::error($e->getMessage(),null);
         }
     }
 
