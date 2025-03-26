@@ -16,11 +16,10 @@ Route::controller(AuthController::class)->group(function(){
 
 // token is required
 Route::group(['middleware' => 'auth:sanctum'], function(){
-    Route::get('/me', function(Request $request) {
-        return auth()->user();
-    });
+    //under Auth Controller
     Route::controller(AuthController::class)->group(function(){
         Route::get('me', 'getCurrentUser');
         Route::get('logout', 'logout');
+        Route::get('revokeAll', 'revoke_all');
     });
 });

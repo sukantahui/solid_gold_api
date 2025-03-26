@@ -87,7 +87,11 @@ class AuthController extends Controller
         $user->tokens()->delete();
         return ResponseHelper::success(null, 'Logged out successfully', 200);
     }
-
+    public function revoke_all(){
+        //revoke all tokens from current user
+        $result = auth()->user()->tokens()->delete();
+        return ResponseHelper::success(null, 'Revoke all',$result, 200);
+    }
 
 
 }
