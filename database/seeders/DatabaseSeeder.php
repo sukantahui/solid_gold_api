@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CustomerCategory;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Employee;
@@ -45,7 +46,11 @@ class DatabaseSeeder extends Seeder
             ['designation_name' => 'Worker'],
         ]);
         Employee::insert([
-            ['employee_nme'=>'Vivekanada','mobile'=>'9836444999','email'=>'bangle312@gmail.com','department_id' => 1, 'designation_id' => 1]
+            ['employee_name'=>'Vivekanada','mobile'=>'9836444999','email'=>'bangle312@gmail.com','department_id' => 1, 'designation_id' => 1]
+        ]);
+        CustomerCategory::insert([
+            ['customer_category_name' => 'Gold'],
+            ['customer_category_name' => 'Platinum'],
         ]);
     }
 }

@@ -19,6 +19,12 @@ class AuthController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    public function test(){
+        return response()->json([
+           'message' => 'Hello World'
+        ], 200);
+    }
+    
     public function register(RegisterRequest $request)
     {
         try{

@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('customer_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_name');
-            $table->string('mobile');
-            $table->string('email')->nullable(true);
-            $table->foreignId('department_id')->references('id')->on('departments');
-            $table->foreignId('designation_id')->references('id')->on('designations');
+            $table->string('customer_category_name')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('customer_categories');
     }
 };
