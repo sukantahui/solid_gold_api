@@ -13,4 +13,14 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('login', 'login');
 });
-// Route::post('/register', [AuthController::class, 'register']);
+
+// token is required
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::get('/me', function(Request $request) {
+        return auth()->user();
+    });
+    Route::controller(AuthController::class)->group(function(){
+        Route::get('me', 'getCurrentUser');
+        Route::get('logout', 'logout');
+    });
+});
