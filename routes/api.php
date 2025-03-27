@@ -16,17 +16,20 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 
-Route::controller(CustomerController::class)->group(function(){
-    Route::post('save', 'store');
-});
+
 
 // token is required
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //under Auth Controller
     Route::controller(AuthController::class)->group(function(){
         Route::get('me', 'getCurrentUser');
-        Route::get('logout', 'logout');
+        Route::post('logout', 'logout');
         Route::get('revokeAll', 'revoke_all');
 
+    });
+    //under CustomerController
+    Route::controller(CustomerController::class)->group(function(){
+        Route::post('customers', 'store');
+        Route::get('customers', 'index');
     });
 });

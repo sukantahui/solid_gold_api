@@ -24,7 +24,7 @@ class AuthController extends Controller
            'message' => 'Hello World'
         ], 200);
     }
-    
+
     public function register(RegisterRequest $request)
     {
         try{
@@ -91,7 +91,7 @@ class AuthController extends Controller
     {
         $user=auth()->user();
         $user->tokens()->delete();
-        return ResponseHelper::success(null, 'Logged out successfully', 200);
+        return ResponseHelper::success(null, 'Logged out successfully',$user, 200);
     }
     public function revoke_all(){
         //revoke all tokens from current user

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\CustomerCategory;
+use App\Models\Customer;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Employee;
@@ -51,6 +52,28 @@ class DatabaseSeeder extends Seeder
         CustomerCategory::insert([
             ['customer_category_name' => 'Gold'],
             ['customer_category_name' => 'Platinum'],
+        ]);
+
+        Customer::insert([
+            ['customer_category_id' => 1,
+            'customer_name' => 'Sbs Jewellers',
+            'mailing_name'=> 'M/S SBS Jewellers',
+            'email'=> 'sbs@gmail.com',
+            'phone'=> '781458',
+            'address'=> 'Garia',
+            'pin_code'=> '700111',
+            'opening_gold_balance'=> 0,
+            'opening_cash_balance'=> 0],
+
+            ['customer_category_id' => 1,
+            'customer_name' => 'Radha Jewellers',
+            'mailing_name'=> 'M/S Radha Jewellers',
+            'email'=> 'radha@gmail.com',
+            'phone'=> '8955465',
+            'address'=> 'Howrah',
+            'pin_code'=> '78559',
+            'opening_gold_balance'=> 0,
+            'opening_cash_balance'=> 0]
         ]);
     }
 }

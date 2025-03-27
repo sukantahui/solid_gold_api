@@ -15,7 +15,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::all();
+        return ResponseHelper::success('success','Customer fetchedd',$customers,200);
     }
 
     /**
