@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
@@ -32,4 +33,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::post('customers', 'store');
         Route::get('customers', 'index');
     });
+
+    Route::controller(AgentController::class)->group(function(){
+        Route::post('agents', 'store');
+        Route::get('agents', 'index');
+    });
+
 });

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\AgentCategory;
+use App\Models\Agent;
 use App\Models\CustomerCategory;
 use App\Models\Customer;
 use App\Models\Department;
@@ -75,5 +77,16 @@ class DatabaseSeeder extends Seeder
             'opening_gold_balance'=> 0,
             'opening_cash_balance'=> 0]
         ]);
+        AgentCategory::insert([
+            ['agent_category_name' => 'Gold Agent'],
+            ['agent_category_name' => 'Silver Agent']
+        ]);
+        Agent::insert([
+            ['agent_name'=>'Swapon Sil','agent_category_id'=>'1','short_name'=>'SWSI','email'=>'swa@gmail.com','phone'=>'12364','address'=>'Barrackpore','pin_code'=>'700122'],
+            ['agent_name'=>'Akash Dutta','agent_category_id'=>'2','short_name'=>'AD','email'=>'AD@gmail.com','phone'=>'1236456','address'=>'Barrackpore','pin_code'=>'700122'],
+            ['agent_name'=>'Arnab Das','agent_category_id'=>'1','short_name'=>'AR','email'=>'AR@gmail.com','phone'=>'45636456','address'=>'Palta','pin_code'=>'700121']
+
+        ]);
+
     }
 }
