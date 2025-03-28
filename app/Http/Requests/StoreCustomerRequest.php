@@ -22,7 +22,20 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customerName' => 'required|min:8',
+            'customerCategoryId' => 'required|integer||exists:customer_categories,id',
+            'customerName' => 'required|string|max:255|unique:customers,customer_name',
+            'mailingName' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:customers,email',
+            'phone' => 'required|string|max:20|regex:/^[0-9\-]+$/',
+            'address' => 'required|string|max:500',
+            'pinCode' => 'required|string|max:10',
+            'openingGoldBalance' => 'nullable|numeric|min:0',
+            'openingCashBalance' => 'nullable|numeric|min:0',
+            'active' => 'boolean',
+            'orderActive' => 'boolean',
+            'billActive' => 'boolean',
+            'jobCctive' => 'boolean',
+            'inforce' => 'boolean',
         ];
     }
 }

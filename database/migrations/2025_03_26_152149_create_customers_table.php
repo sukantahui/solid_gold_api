@@ -22,11 +22,11 @@ return new class extends Migration
             $table->string('pin_code');
             $table->decimal('opening_gold_balance')->default(0);
             $table->integer('opening_cash_balance')->default(0);
-            $table->tinyInteger('active')->default(1);
-            $table->tinyInteger('order_active')->default(1);
-            $table->tinyInteger('bill_active')->default(1);
-            $table->tinyInteger('job_active')->default(1);
-            $table->tinyInteger('inforce')->default(1);
+            $table->boolean('active')->default(true);
+            $table->boolean('order_active')->default(true);
+            $table->boolean('bill_active')->default(true);
+            $table->boolean('job_active')->default(true);
+            $table->boolean('inforce')->default(true);
             $table->timestamps();
         });
     }
