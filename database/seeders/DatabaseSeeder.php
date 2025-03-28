@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
         //admin created
         $user=User::create([
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('1234'),
+            'password' => Hash::make('12345678'),
             'user_type_id'=>1,
             'employee_id'=>2
         ]);
@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
         //developer created
         $user=User::create([
             'email' => 'developer@gmail.com',
-            'password' => Hash::make('1234'),
+            'password' => Hash::make('12345678'),
             'user_type_id'=>2,
             'employee_id'=>2
         ]);
@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
         //owner created
         $user=User::create([
             'email' => 'owner@gmail.com',
-            'password' => Hash::make('1234'),
+            'password' => Hash::make('12345678'),
             'user_type_id'=>3,
             'employee_id'=>1
         ]);
@@ -94,7 +94,7 @@ class DatabaseSeeder extends Seeder
         //owner created
         $user=User::create([
             'email' => 'manager@gmail.com',
-            'password' => Hash::make('1234'),
+            'password' => Hash::make('12345678'),
             'user_type_id'=>4,
             'employee_id'=>3
         ]);
