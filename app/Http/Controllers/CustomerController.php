@@ -41,6 +41,9 @@ class CustomerController extends Controller
                 'mailing_name' => $request->mailingName,
                 'email' => $request->email,
                 'phone' => $request->phone,
+                'mobile1' => $request->mobile1,
+                'mobile2' => $request->mobile2,
+                'whatsapp' => $request->whatsapp,
                 'address' => $request->address,
                 'pin_code' => $request->pinCode,
                 'opening_gold_balance' => $request->openingGoldBalance,
@@ -49,7 +52,7 @@ class CustomerController extends Controller
 
             if($customer){
                 // Optionally, generate an authentication token for the user
-                return ResponseHelper::success('success','Customer created', new CustomermerResource($customer),200);
+                return ResponseHelper::success('success','Customer created', new CustomerResource($customer),200);
             }else{
                 return ResponseHelper::error('Failed to register user');
             }

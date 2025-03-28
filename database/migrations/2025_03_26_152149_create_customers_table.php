@@ -16,8 +16,11 @@ return new class extends Migration
             $table->foreignId('customer_category_id')->references('id')->on('customer_categories');
             $table->string('customer_name')->unique();
             $table->string('mailing_name');
-            $table->string('email')->unique();
-            $table->string('phone');
+            $table->string('email')->unique()->nullable();
+            $table->string('phone')->unique()->nullable();
+            $table->string('mobile1')->unique()->nullable();
+            $table->string('mobile2')->unique()->nullable();
+            $table->string('whatsapp')->unique()->nullable();
             $table->string('address');
             $table->string('pin_code');
             $table->decimal('opening_gold_balance')->default(0);

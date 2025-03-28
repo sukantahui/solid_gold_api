@@ -41,7 +41,7 @@ class AuthController extends Controller
             if($user){
                 // Optionally, generate an authentication token for the user
                 $token = $user->createToken('auth_token')->plainTextToken;
-                return ResponseHelper::success(array('user'=>$user,'token'=>$token), 'User registered successfully',201);
+                return ResponseHelper::success(array('user'=>new UserResource($user),'token'=>$token), 'User registered successfully',201);
             }else{
                 return ResponseHelper::error('Failed to register user');
             }
