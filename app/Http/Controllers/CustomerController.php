@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerResource;
+use Illuminate\Support\Str;
 use Exception;
 
 
@@ -64,9 +65,18 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function get_customer($custId)
     {
-        //
+        $customer = Customer::find($custId);
+
+        // Check if the customer exists
+
+
+        if ($customer) {
+            return ResponseHelper::success('success','Customer fetched', new CustomerResource($customer),200);
+        } else {
+            return ResponseHelper::error('Customer not found', null, 404);
+        }
     }
 
     /**
@@ -80,9 +90,22 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
+    public function update(UpdateCustomerRequest $request, $id)
     {
-        //
+        // Find the customer or return a 404 response if not found
+        $customer = Customer::findOrFail($id);
+
+        // Convert request data keys from camelCase to snake_case
+        $validatedData = collect($request->validated())->mapWithKeys(function ($value, $key) {
+            return [Str::snake($key) => $value];
+        })->toArray();
+
+        // Update the customer with validated data
+        $customer->update($validatedData);
+
+        // Return a success response
+        return ResponseHelper::success('success','Customer fetched', new CustomerResource($customer),200);
+        
     }
 
     /**

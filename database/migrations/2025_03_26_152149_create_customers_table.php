@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone')->unique()->nullable();
             $table->string('mobile1')->unique()->nullable();
             $table->string('mobile2')->unique()->nullable();
-            $table->string('whatsapp')->unique()->nullable();
+            $table->string('whatsapp')->nullable();
             $table->string('address');
             $table->string('pin_code');
             $table->decimal('opening_gold_balance')->default(0);

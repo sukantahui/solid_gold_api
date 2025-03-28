@@ -11,7 +11,25 @@ class Customer extends Model
     /** @use HasFactory<\Database\Factories\CustomerFactory> */
     use HasFactory;
     protected $guarded = ['id'];
-
+    // protected $fillable = [
+    //     'customer_category_id',
+    //     'customer_name',
+    //     'mailing_name',
+    //     'email',
+    //     'phone',
+    //     'mobile1',
+    //     'mobile2',
+    //     'whatsapp',
+    //     'address',
+    //     'pin_code',
+    //     'opening_gold_balance',
+    //     'opening_cash_balance',
+    //     'active',
+    //     'order_active',
+    //     'bill_active',
+    //     'job_active',
+    //     'inforce',
+    // ];
 
     protected $casts = [
         'active' => 'boolean',

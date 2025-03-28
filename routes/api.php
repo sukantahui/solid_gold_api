@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::controller(CustomerController::class)->group(function(){
         Route::post('customers', 'store');
         Route::get('customers', 'index');
+        Route::get('customers/{id}', 'get_customer');
+        Route::put('customers/{id}', 'update');
     });
 
     Route::controller(AgentController::class)->group(function(){
