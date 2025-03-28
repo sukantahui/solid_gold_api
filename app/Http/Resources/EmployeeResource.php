@@ -12,6 +12,8 @@ class EmployeeResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+
+
     public function toArray(Request $request): array
     {
         return [
@@ -20,7 +22,7 @@ class EmployeeResource extends JsonResource
             'mobile'=>$this->mobile,
             'email'=>$this->email,
             'departmentId'=>$this->department_id,
-            'designationID'=>$this->designation_id,
+            'designationId'=>$this->designation_id,
             'department'=>$this->department,
             'designation'=>$this->designation,
         ];

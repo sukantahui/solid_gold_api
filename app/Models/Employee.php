@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  *
@@ -38,12 +40,21 @@ class Employee extends Model
     protected $guarded = ['id'];
 
 
-    public function department(){
-        return $this->belongsTo('App\Models\Department','department_id');
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
     }
 
-    public function designation(){
-        return $this->belongsTo('App\Models\Designation','designation_id');
+    // Relationship with Designation
+    public function designation(): BelongsTo
+    {
+        return $this->belongsTo(Designation::class);
+    }
+
+    // Relationship with User (One-to-One)
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
     }
 
 }

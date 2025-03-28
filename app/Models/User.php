@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  *
@@ -70,12 +70,18 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function user_type(){
-        return $this->belongsTo('App\Models\UserType','user_type_id');
+
+
+    // Relationship with UserType
+    public function userType(): BelongsTo
+    {
+        return $this->belongsTo(UserType::class);
     }
-    
-    public function employee(){
-        return $this->belongsTo('App\Models\Employee','employee_id');
+
+    // Relationship with Employee
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(Employee::class);
     }
 
     /**

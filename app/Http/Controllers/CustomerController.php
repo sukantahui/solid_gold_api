@@ -6,7 +6,9 @@ use App\Helper\ResponseHelper;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Resources\CustomerResource;
 use Exception;
+
 
 class CustomerController extends Controller
 {
@@ -16,7 +18,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        return ResponseHelper::success('success','Customer fetchedd',$customers,200);
+        return ResponseHelper::success('success','Customer fetchedd', CustomerResource::collection($customers),200);
     }
 
     /**
@@ -47,7 +49,7 @@ class CustomerController extends Controller
 
             if($customer){
                 // Optionally, generate an authentication token for the user
-                return ResponseHelper::success('success','Customer created',$customer,200);
+                return ResponseHelper::success('success','Customer created', new CustomermerResource($customer),200);
             }else{
                 return ResponseHelper::error('Failed to register user');
             }

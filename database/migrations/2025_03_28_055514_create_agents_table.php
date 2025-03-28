@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('pin_code');
             $table->tinyInteger('active')->default(1);
             $table->tinyInteger('inforce')->default(1);
+
+            //Optional but recommended for performance
+            $table->index('agent_category_id'); // Foreign key index
             $table->timestamps();
         });
     }

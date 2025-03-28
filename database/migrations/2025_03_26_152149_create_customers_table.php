@@ -27,6 +27,8 @@ return new class extends Migration
             $table->boolean('bill_active')->default(true);
             $table->boolean('job_active')->default(true);
             $table->boolean('inforce')->default(true);
+            //Optional but recommended for performance
+            $table->index('customer_category_id'); // Foreign key index
             $table->timestamps();
         });
     }
