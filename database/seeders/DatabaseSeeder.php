@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\UserType;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -49,8 +50,61 @@ class DatabaseSeeder extends Seeder
             ['designation_name' => 'Worker'],
         ]);
         Employee::insert([
-            ['employee_name'=>'Vivekanada','mobile'=>'9836444999','email'=>'bangle312@gmail.com','department_id' => 1, 'designation_id' => 1]
+            ['employee_name'=>'Vivekanada','mobile'=>'9836444999','email'=>'bangle312@gmail.com','department_id' => 3, 'designation_id' => 3],
+            ['employee_name'=>'Sukanta Hui','mobile'=>'7003756860','email'=>'sukantahui@gmail.com','department_id' => 2, 'designation_id' => 2],
+            ['employee_name'=>'Saheb Ghosh','mobile'=>'8334861999','email'=>'sahebghosh89@gmail.com','department_id' => 4, 'designation_id' => 4]
         ]);
+        //admin created
+        $user=User::create([
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('1234'),
+            'user_type_id'=>1,
+            'employee_id'=>2
+        ]);
+        $this->command->info('Created user ADMIN:');
+        $this->command->table(
+            ['Email', 'Created At'],
+            [[$user->email, $user->created_at]]
+        );
+        //developer created
+        $user=User::create([
+            'email' => 'developer@gmail.com',
+            'password' => Hash::make('1234'),
+            'user_type_id'=>2,
+            'employee_id'=>2
+        ]);
+        $this->command->info('Created user: Developer');
+        $this->command->table(
+            ['Email', 'Created At'],
+            [[$user->email, $user->created_at]]
+        );
+        //owner created
+        $user=User::create([
+            'email' => 'owner@gmail.com',
+            'password' => Hash::make('1234'),
+            'user_type_id'=>3,
+            'employee_id'=>1
+        ]);
+        $this->command->info('Created user: owner');
+        $this->command->table(
+            ['Email', 'Created At'],
+            [[$user->email, $user->created_at]]
+        );
+
+        //owner created
+        $user=User::create([
+            'email' => 'manager@gmail.com',
+            'password' => Hash::make('1234'),
+            'user_type_id'=>4,
+            'employee_id'=>3
+        ]);
+        $this->command->info('Created user: Manager');
+        $this->command->table(
+            ['Email', 'Created At'],
+            [[$user->email, $user->created_at]]
+        );
+
+
         CustomerCategory::insert([
             ['customer_category_name' => 'Gold'],
             ['customer_category_name' => 'Platinum'],
