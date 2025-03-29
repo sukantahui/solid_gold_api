@@ -8,6 +8,8 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerResource;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;  // Add this import
+use Illuminate\Support\Facades\Log; // Add this import
 use Exception;
 
 
@@ -19,7 +21,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        return ResponseHelper::success('success','Customer fetchedd', CustomerResource::collection($customers),200);
+        return ResponseHelper::success('Customer fetchedd', CustomerResource::collection($customers),200);
     }
 
     /**
@@ -53,7 +55,7 @@ class CustomerController extends Controller
 
             if($customer){
                 // Optionally, generate an authentication token for the user
-                return ResponseHelper::success('success','Customer created', new CustomerResource($customer),200);
+                return ResponseHelper::success('Customer created', new CustomerResource($customer),200);
             }else{
                 return ResponseHelper::error('Failed to register user');
             }
@@ -73,7 +75,7 @@ class CustomerController extends Controller
 
 
         if ($customer) {
-            return ResponseHelper::success('success','Customer fetched', new CustomerResource($customer),200);
+            return ResponseHelper::success('Customer fetched', new CustomerResource($customer),200);
         } else {
             return ResponseHelper::error('Customer not found', null, 404);
         }
@@ -92,21 +94,47 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, $id)
     {
-        // Find the customer or return a 404 response if not found
-        $customer = Customer::findOrFail($id);
+        DB::beginTransaction();
 
-        // Convert request data keys from camelCase to snake_case
-        $validatedData = collect($request->validated())->mapWithKeys(function ($value, $key) {
-            return [Str::snake($key) => $value];
-        })->toArray();
+        try {
+            // Find the customer or fail with 404
+            $customer = Customer::findOrFail($id);
 
-        // Update the customer with validated data
-        $customer->update($validatedData);
+            // Convert camelCase to snake_case and prepare data
+            $validatedData = collect($request->validated())
+                ->mapWithKeys(fn ($value, $key) => [Str::snake($key) => $value])
+                ->toArray();
 
-        // Return a success response
-        return ResponseHelper::success('success','Customer fetched', new CustomerResource($customer),200);
-        
-    }
+            // Handle unique fields carefully
+            //$this->handleUniqueFields($validatedData, $customer);
+
+            // Update customer
+            $customer->update($validatedData);
+
+            DB::commit();
+
+            return ResponseHelper::success(
+                'Customer updated successfully',
+                new CustomerResource($customer->fresh()),
+                200
+            );
+
+        } catch (ModelNotFoundException $e) {
+            DB::rollBack();
+            Log::error("Customer not found: {$e->getMessage()}");
+            return ResponseHelper::error('Customer not found', 404);
+
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Log::error("Database error updating customer: {$e->getMessage()}");
+            return ResponseHelper::error('Failed to update customer due to database error', 500);
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error("Error updating customer: {$e->getMessage()}");
+            return ResponseHelper::error('Failed to update customer', 500);
+        }
+}
 
     /**
      * Remove the specified resource from storage.

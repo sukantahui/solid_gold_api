@@ -108,6 +108,11 @@ class DatabaseSeeder extends Seeder
         CustomerCategory::insert([
             ['customer_category_name' => 'Gold'],
             ['customer_category_name' => 'Platinum'],
+            ['customer_category_name' => 'Tester'],
+            ['customer_category_name' => 'Silver'],
+            ['customer_category_name' => 'Diamond'],
+            ['customer_category_name' => 'Other']
+
         ]);
 
         Customer::insert([

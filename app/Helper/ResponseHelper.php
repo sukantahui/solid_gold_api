@@ -10,16 +10,16 @@ class ResponseHelper
     {
         //
     }
-    public static function success($status='success',$message=null,$data=[], $statusCode=200){
+    public static function success($message=null,$data=[], $statusCode=200){
         return response()->json([
-            "status" => $status,
+            "status" => true,
             "message" => $message?? "Success",
             "data" => $data
         ],$statusCode);
     }
     public static function error($message=null,$data=null, $statusCode=400){
         return response()->json([
-            "status" => 'error',
+            "status" => false,
             "message" => $message?? "error in program",
             "data" => $data?? null
         ],$statusCode);

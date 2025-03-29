@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
@@ -40,5 +41,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::post('agents', 'store');
         Route::get('agents', 'index');
     });
+
+    Route::controller(CustomerCategoryController::class)->group(function(){
+        Route::post('customerCategories', 'store');
+        Route::get('customerCategories', 'index');
+        Route::delete('customerCategories/{id}', 'destroy');
+    });
+
 
 });
