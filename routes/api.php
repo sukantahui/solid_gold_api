@@ -4,6 +4,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductCategoryController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -29,6 +30,13 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('revokeAll', 'revoke_all');
 
     });
+
+    Route::controller(CustomerCategoryController::class)->group(function(){
+        Route::post('customer-categories', 'store');
+        Route::get('customer-categories', 'index');
+        Route::put('customer-categories/{id}', 'update');
+        Route::delete('customer-categories/{id}', 'destroy');
+    });
     //under CustomerController
     Route::controller(CustomerController::class)->group(function(){
         Route::post('customers', 'store');
@@ -42,10 +50,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('agents', 'index');
     });
 
-    Route::controller(CustomerCategoryController::class)->group(function(){
-        Route::post('customerCategories', 'store');
-        Route::get('customerCategories', 'index');
-        Route::delete('customerCategories/{id}', 'destroy');
+
+    Route::controller(ProductCategoryController::class)->group(function(){
+        Route::post('product-categories', 'store');
+        Route::get('product-categories', 'index');
+        Route::put('product-categories/{id}', 'update');
+        Route::delete('product-categories/{id}', 'destroy');
     });
 
 

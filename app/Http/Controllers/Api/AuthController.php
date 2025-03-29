@@ -19,11 +19,7 @@ class AuthController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function test(){
-        return response()->json([
-           'message' => 'Hello World'
-        ], 200);
-    }
+
 
     public function register(RegisterRequest $request)
     {
@@ -62,7 +58,7 @@ class AuthController extends Controller
         try{
             // Attempt to authenticate the user
             if (!Auth::attempt($request->only('email', 'password'))) {
-                return response()->json(['message' => 'Invalid credentials'], 401);
+                return ResponseHelper::error($e->getMessage(),null,401);
             }
 
             // Get the authenticated user
@@ -72,7 +68,7 @@ class AuthController extends Controller
             $token = $user->createToken('auth_token')->plainTextToken;
             $userResource = new UserResource($user);
             // return ResponseHelper::success('success','login successfully',array('user'=>$userResource,'token'=>$token),200);
-            return ResponseHelper::success('success','login successfully',array('user'=>new UserResource($user),'token'=>$token),200);
+            return ResponseHelper::success('login successfully',array('user'=>new UserResource($user),'token'=>$token),200);
         }catch(Exception $e){
             return ResponseHelper::error($e->getMessage(),null);
         }

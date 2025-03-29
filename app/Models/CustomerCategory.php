@@ -10,6 +10,8 @@ class CustomerCategory extends Model
 {
     /** @use HasFactory<\Database\Factories\CustomerCategoryFactory> */
     use HasFactory;
+
+    protected $guarded = ['id'];
     public function customers(): HasMany
     {
         return $this->hasMany(Customer::class);

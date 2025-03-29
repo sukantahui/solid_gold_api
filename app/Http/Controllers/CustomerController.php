@@ -24,13 +24,7 @@ class CustomerController extends Controller
         return ResponseHelper::success('Customer fetchedd', CustomerResource::collection($customers),200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -80,15 +74,6 @@ class CustomerController extends Controller
             return ResponseHelper::error('Customer not found', null, 404);
         }
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Customer $customer)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
@@ -139,7 +124,7 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
+    public function destroy($is)
     {
         //
     }
