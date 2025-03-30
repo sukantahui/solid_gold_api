@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('employee_name');
             $table->string('mobile');
             $table->string('email')->nullable(true);
-            $table->foreignId('department_id')->references('id')->on('departments');
-            $table->foreignId('designation_id')->references('id')->on('designations');
+            $table->foreignId('department_id')->constrained('departments')->restrictOnDelete();
+            $table->foreignId('designation_id')->constrained('designations')->restrictOnDelete();
             $table->timestamps();
         });
     }

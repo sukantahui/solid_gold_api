@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('agents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('agent_category_id')->references('id')->on('agent_categories');
+            $table->foreignId('agent_category_id')->constrained('agent_categories')->restrictOnDelete();
             $table->string('agent_name')->unique();
             $table->string('short_name');
             $table->string('email')->unique();

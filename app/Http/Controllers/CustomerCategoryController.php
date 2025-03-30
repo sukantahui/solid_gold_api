@@ -26,13 +26,7 @@ class CustomerCategoryController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -42,21 +36,8 @@ class CustomerCategoryController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(CustomerCategory $customerCategory)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(CustomerCategory $customerCategory)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -115,7 +96,7 @@ class CustomerCategoryController extends Controller
 
             // Check if customer has related records before deletion
             if ($this->hasDependentRecords($category)) {
-                return ResponseHelper::error('Cannot delete customer because it has associated records.',null,422);
+                return ResponseHelper::error('Cannot delete customer Category because it has associated records.',null,422);
             }
 
             $category->delete();

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_category_id')->references('id')->on('customer_categories');
+            $table->foreignId('customer_category_id')->constrained('customer_categories')->restrictOnDelete();
             $table->string('customer_name')->unique();
             $table->string('mailing_name');
             $table->string('email',255)->unique()->nullable();

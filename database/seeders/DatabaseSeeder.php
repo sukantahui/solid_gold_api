@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\AgentCategory;
 use App\Models\Agent;
+use App\Models\PriceCode;
 use App\Models\CustomerCategory;
 use App\Models\Customer;
 use App\Models\Department;
@@ -145,6 +146,13 @@ class DatabaseSeeder extends Seeder
             ['agent_name'=>'Akash Dutta','agent_category_id'=>'2','short_name'=>'AD','email'=>'AD@gmail.com','phone'=>'1236456','address'=>'Barrackpore','pin_code'=>'700122'],
             ['agent_name'=>'Arnab Das','agent_category_id'=>'1','short_name'=>'AR','email'=>'AR@gmail.com','phone'=>'45636456','address'=>'Palta','pin_code'=>'700121']
 
+        ]);
+
+        PriceCode::insert([
+            ['price_code_name' => 'A'],
+            ['price_code_name' => 'B'],
+            ['price_code_name' => 'C'],
+            ['price_code_name' => 'D']
         ]);
 
     }
