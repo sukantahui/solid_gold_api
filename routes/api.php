@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\CustomerCategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductCategoryController;
@@ -56,6 +57,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('product-categories', 'index');
         Route::put('product-categories/{id}', 'update');
         Route::delete('product-categories/{id}', 'destroy');
+    });
+
+    Route::controller(OrderController::class)->group(function(){
+        Route::post('orders', 'save_order');
     });
 
 

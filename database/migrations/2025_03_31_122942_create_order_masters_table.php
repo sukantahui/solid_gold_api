@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('order_number',15)->unique()->nullable(false)->comment('Unique order number');
             $table->foreignId('customer_id')->constrained('customers')->restrictOnDelete();
             $table->foreignId('agent_id')->constrained('agents')->restrictOnDelete();
+            $table->string('order_note',2555)->nullable(true)->comment('Order note');
             $table->timestamps();
         });
     }

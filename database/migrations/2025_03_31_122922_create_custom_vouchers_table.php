@@ -19,17 +19,20 @@ return new class extends Migration
 
             // Determine accounting year (e.g., April 2024 - March 2025 → "2425")
             $accountingYear = ($currentMonth < 4)
-                ? sprintf("%02d%02d", $currentYear - 1, $currentYear % 100)
-                : sprintf("%02d%02d", $currentYear, ($currentYear + 1) % 100);
+                ? sprintf("%02d%02d", ($currentYear - 1)%100, $currentYear % 100)
+                : sprintf("%02d%02d", $currentYear%100, ($currentYear + 1) % 100);
             $table->id();
             $table->string('voucher_name',100);
             $table->bigInteger('last_counter')->default(1);
             $table->string('accounting_year')->default($accountingYear);
-            $table->unique(['voucher_name','accounting_year']);
+
             $table->string('prefix')->nullable(true);
             $table->string('suffix')->nullable(true);
             $table->string('delimiter')->default('-');
-            $table->enum('inforce', array(0, 1))->default(1);
+            $table->unsignedTinyInteger('min_digits')->default(4)->comment('Zero padding length');
+            $table->boolean('inforce')->default(true)->comment('Whether voucher is active');
+
+            $table->unique(['voucher_name','accounting_year']);
             $table->timestamps();
 
         });
@@ -42,4 +45,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('custom_vouchers');
     }
+
 };

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\AgentCategory;
 use App\Models\Agent;
+use App\Models\CustomVoucher;
 use App\Models\PriceCode;
 use App\Models\ProductRate;
 use App\Models\CustomerCategory;
@@ -166,6 +167,8 @@ class DatabaseSeeder extends Seeder
             ['customer_category_id'=>'2','price_code_id'=>'3','loss_percentage'=>6.5,'labour_charge'=>0],
             ['customer_category_id'=>'2','price_code_id'=>'4','loss_percentage'=>7.5,'labour_charge'=>0]
         ]);
+
+        
 
 
     }
