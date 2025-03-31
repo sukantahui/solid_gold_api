@@ -7,6 +7,7 @@ use App\Models\Agent;
 use App\Models\CustomVoucher;
 use App\Models\PriceCode;
 use App\Models\ProductRate;
+use App\Models\ProductCategory;
 use App\Models\CustomerCategory;
 use App\Models\Customer;
 use App\Models\Department;
@@ -158,17 +159,28 @@ class DatabaseSeeder extends Seeder
         ]);
 
         ProductRate::insert([
-            ['customer_category_id'=>'1','price_code_id'=>'1','loss_percentage'=>4,'labour_charge'=>0],
-            ['customer_category_id'=>'1','price_code_id'=>'2','loss_percentage'=>5,'labour_charge'=>0],
-            ['customer_category_id'=>'1','price_code_id'=>'3','loss_percentage'=>6,'labour_charge'=>0],
-            ['customer_category_id'=>'1','price_code_id'=>'4','loss_percentage'=>7,'labour_charge'=>0],
-            ['customer_category_id'=>'2','price_code_id'=>'1','loss_percentage'=>4.5,'labour_charge'=>0],
-            ['customer_category_id'=>'2','price_code_id'=>'2','loss_percentage'=>5.5,'labour_charge'=>0],
-            ['customer_category_id'=>'2','price_code_id'=>'3','loss_percentage'=>6.5,'labour_charge'=>0],
-            ['customer_category_id'=>'2','price_code_id'=>'4','loss_percentage'=>7.5,'labour_charge'=>0]
+            ['customer_category_id'=>'1','price_code_id'=>'1','wastege_percentage'=>4,'labour_charge'=>0],
+            ['customer_category_id'=>'1','price_code_id'=>'2','wastege_percentage'=>5,'labour_charge'=>0],
+            ['customer_category_id'=>'1','price_code_id'=>'3','wastege_percentage'=>6,'labour_charge'=>0],
+            ['customer_category_id'=>'1','price_code_id'=>'4','wastege_percentage'=>7,'labour_charge'=>0],
+            ['customer_category_id'=>'2','price_code_id'=>'1','wastege_percentage'=>4.5,'labour_charge'=>0],
+            ['customer_category_id'=>'2','price_code_id'=>'2','wastege_percentage'=>5.5,'labour_charge'=>0],
+            ['customer_category_id'=>'2','price_code_id'=>'3','wastege_percentage'=>6.5,'labour_charge'=>0],
+            ['customer_category_id'=>'2','price_code_id'=>'4','wastege_percentage'=>7.5,'labour_charge'=>0]
         ]);
 
-        
+        ProductCategory::insert([
+            ['product_category_name' => 'Bala','product_category_description'=>'This is a bala product'],
+            ['product_category_name' => 'Churi','product_category_description'=>'This is a Churi'],
+            ['product_category_name' => 'Chain','product_category_description'=>'This is a chain'],
+            ['product_category_name' => 'Mangal Sutra','product_category_description'=>'This is a Mangal Sutra'],
+            ['product_category_name' => 'Necklace','product_category_description'=>'This is a Necklace'],
+            ['product_category_name' => 'Ring','product_category_description'=>'This is a Ring'],
+            ['product_category_name' => 'Bangle','product_category_description'=>'This is a Bangle'],
+            ['product_category_name' => 'Other','product_category_description'=>'This is a Other']
+        ]);
+
+
 
 
     }

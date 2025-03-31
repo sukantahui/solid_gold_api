@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_category_id')->constrained('customer_categories')->restrictOnDelete();
             $table->foreignId('price_code_id')->constrained('price_codes')->restrictOnDelete();
-            $table->decimal('loss_percentage',5,3)->nullable(false)->comment('The charge on finished product in percentage');
+            $table->decimal('wastege_percentage',5,3)->nullable(false)->comment('The charge on finished product in percentage');
             $table->integer('labour_charge')->default(0)->comment('Labourcharge in rupees');
             $table->index('customer_category_id');
             $table->index('price_code_id');
