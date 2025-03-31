@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\AgentCategory;
 use App\Models\Agent;
 use App\Models\PriceCode;
+use App\Models\ProductRate;
 use App\Models\CustomerCategory;
 use App\Models\Customer;
 use App\Models\Department;
@@ -154,6 +155,18 @@ class DatabaseSeeder extends Seeder
             ['price_code_name' => 'C'],
             ['price_code_name' => 'D']
         ]);
+
+        ProductRate::insert([
+            ['customer_category_id'=>'1','price_code_id'=>'1','loss_percentage'=>4,'labour_charge'=>0],
+            ['customer_category_id'=>'1','price_code_id'=>'2','loss_percentage'=>5,'labour_charge'=>0],
+            ['customer_category_id'=>'1','price_code_id'=>'3','loss_percentage'=>6,'labour_charge'=>0],
+            ['customer_category_id'=>'1','price_code_id'=>'4','loss_percentage'=>7,'labour_charge'=>0],
+            ['customer_category_id'=>'2','price_code_id'=>'1','loss_percentage'=>4.5,'labour_charge'=>0],
+            ['customer_category_id'=>'2','price_code_id'=>'2','loss_percentage'=>5.5,'labour_charge'=>0],
+            ['customer_category_id'=>'2','price_code_id'=>'3','loss_percentage'=>6.5,'labour_charge'=>0],
+            ['customer_category_id'=>'2','price_code_id'=>'4','loss_percentage'=>7.5,'labour_charge'=>0]
+        ]);
+
 
     }
 }
