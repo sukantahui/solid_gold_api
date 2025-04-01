@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_master_id')->constrained('order_masters')->restrictOnDelete();
             $table->foreignId('product_id')->constrained('products')->restrictOnDelete();
             $table->integer('quantity')->nullable(false)->comment('Quantity of the product');
             $table->decimal('gini', 6, 3)->nullable(false)->comment('Expected gold of the product');
             $table->decimal('wastege_percentage', 5, 3)->nullable(false)->comment('wastage to be charged on the gold value');
+            $table->string('product_size')->nullable(false)->default('0-0-0');
             $table->timestamps();
         });
     }

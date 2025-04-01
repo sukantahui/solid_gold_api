@@ -60,6 +60,15 @@ class OrderController extends Controller
             ]);
 
 
+            foreach ($orderDetails as $orderDdetail) {
+                $orderMaster->orderDetails()->create([
+                    'product_id'=>$orderDdetail['productId'],
+                    'quantity'=>$orderDdetail['quantity'],
+                    'gini'=>$orderDdetail['gini'],
+                    'wastege_percentage'=>$orderDdetail['wastegePercentage'],
+                    'product_size'=>$orderDdetail['productSize']
+                ]);
+            }
 
             DB::commit();
             return ResponseHelper::success('Order created', $orderMaster,200);

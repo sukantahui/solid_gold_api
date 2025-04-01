@@ -7,6 +7,7 @@ use App\Models\Agent;
 use App\Models\CustomVoucher;
 use App\Models\PriceCode;
 use App\Models\ProductRate;
+use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\CustomerCategory;
 use App\Models\Customer;
@@ -180,6 +181,27 @@ class DatabaseSeeder extends Seeder
             ['product_category_name' => 'Other','product_category_description'=>'This is a Other']
         ]);
 
+
+        Product::create([
+            'product_category_id' => 1,
+            'product_name' => 'Churi',
+            'product_number' => 'C21',
+            'price_code_id' => 1,
+        ]);
+
+        Product::create([
+            'product_category_id' => 2,
+            'product_name' => 'Bala',
+            'product_number' => 'B22',
+            'price_code_id' => 2,
+        ]);
+
+        Product::create([
+            'product_category_id' => 1,
+            'product_name' => 'Chain',
+            'product_number' => 'Ch22',
+            'price_code_id' => 2,
+        ]);
 
 
 

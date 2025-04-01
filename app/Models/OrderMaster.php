@@ -10,4 +10,8 @@ class OrderMaster extends Model
     /** @use HasFactory<\Database\Factories\OrderMasterFactory> */
     use HasFactory;
     protected $guarded = ['id'];
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
 }

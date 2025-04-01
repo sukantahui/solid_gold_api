@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained('customers')->restrictOnDelete();
             $table->foreignId('agent_id')->constrained('agents')->restrictOnDelete();
             $table->string('order_note',2555)->nullable(true)->comment('Order note');
+            $table->date('order_date')->default(now()->toDateString())->comment('Date of order, without time');
             $table->timestamps();
         });
     }
