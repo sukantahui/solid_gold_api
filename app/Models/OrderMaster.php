@@ -14,4 +14,13 @@ class OrderMaster extends Model
     {
         return $this->hasMany(OrderDetail::class);
     }
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class);
+    }
 }
