@@ -49,8 +49,14 @@ class Customer extends Model
             ->format('d/m/Y h:i A');   // Indian date/time format
     }
 
-    public function category(): BelongsTo
+   
+    public function customerCategory()
     {
-        return $this->belongsTo(CustomerCategory::class, 'customer_category_id');
+        return $this->belongsTo(CustomerCategory::class);
+    }
+
+    public function orderMasters()
+    {
+        return $this->hasMany(OrderMaster::class);
     }
 }

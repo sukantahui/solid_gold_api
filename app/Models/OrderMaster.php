@@ -10,10 +10,6 @@ class OrderMaster extends Model
     /** @use HasFactory<\Database\Factories\OrderMasterFactory> */
     use HasFactory;
     protected $guarded = ['id'];
-    public function orderDetails()
-    {
-        return $this->hasMany(OrderDetail::class);
-    }
     public function customer()
     {
         return $this->belongsTo(Customer::class);
@@ -22,5 +18,10 @@ class OrderMaster extends Model
     public function agent()
     {
         return $this->belongsTo(Agent::class);
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
     }
 }

@@ -9,4 +9,9 @@ class AgentCategory extends Model
 {
     /** @use HasFactory<\Database\Factories\AgentCategoryFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
+    public function agents()
+    {
+        return $this->hasMany(Agent::class);
+    }
 }

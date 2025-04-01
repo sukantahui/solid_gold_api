@@ -16,4 +16,10 @@ class CustomerCategory extends Model
     {
         return $this->hasMany(Customer::class);
     }
+   
+
+    public function productRates()
+    {
+        return $this->hasMany(ProductRate::class);
+    }
 }
