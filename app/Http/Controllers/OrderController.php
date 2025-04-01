@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;  // Add this import
 use Illuminate\Support\Facades\Log; // Add this import
 use Illuminate\Support\Str;
 use App\Helper\CommonHelper;
-
+use Illuminate\Support\Facades\Auth;
 use Exception;
 
 class OrderController extends Controller
@@ -50,12 +50,13 @@ class OrderController extends Controller
             $newVoucher=$voucher->fresh();
             $voucherNumber=$newVoucher->prefix.$newVoucher->delimiter.str_pad((string)$newVoucher->last_counter, $newVoucher->min_digits, '0', STR_PAD_LEFT).$newVoucher->delimiter.$newVoucher->accounting_year;
 
-
+            $employeeId = Auth::user()->employee_id;
             $orderMaster = OrderMaster::create([
                 'order_number'=>$voucherNumber,
                 // 'customer_id'=>$request->input('orderMaster.customerId'),
                 'customer_id'=>$orderMaster->customerId,
                 'agent_id'=>$orderMaster->agentId,
+                'employee_id'=>$employeeId,
                 'order_note'=>$orderMaster->orderNote?? null
             ]);
 

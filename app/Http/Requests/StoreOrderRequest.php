@@ -23,6 +23,7 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'orderMaster'=> 'required',
             'orderMaster.customerId' => [
                 'required',
                 'integer',
@@ -33,7 +34,12 @@ class StoreOrderRequest extends FormRequest
                 'integer',
                 Rule::exists('agents', 'id'),
             ],
-            'orderDetails' => 'required|array'
+            'orderDetails' => 'required|array|min:1',
+            'orderDetails.*.productId' => 'required|integer|exists:products,id',
+            'orderDetails.*.quantity' => 'required|integer|min:1',
+            'orderDetails.*.gini' => 'required|numeric|min:1',
+            'orderDetails.*.wastegePercentage' => 'numeric|between:2,10',
+            'orderDetails.*.productSize' => 'required|string|max:8',
         ];
     }
 }

@@ -24,4 +24,8 @@ class OrderMaster extends Model
     {
         return $this->hasMany(OrderDetail::class);
     }
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }
