@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Resources\OrderResource;
 use App\Models\OrderMaster;
 use App\Models\CustomVoucher;
 use App\Http\Requests\StoreOrderRequest;
@@ -16,6 +16,18 @@ use Exception;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $query = OrderMaster::with('orderDetails')->latest();
+
+        // Return paginated (if ?paginate=true in URL) or all records
+        // Usage:    Paginated: /api/orders?paginate=true
+        return OrderResource::collection(
+            request()->boolean('paginate')
+                ? $query->paginate(3)
+                : $query->get()
+        );
+    }
     public function save_order(StoreOrderRequest $request)
     {
 
@@ -66,7 +78,7 @@ class OrderController extends Controller
                     'product_id'=>$orderDdetail['productId'],
                     'quantity'=>$orderDdetail['quantity'],
                     'gini'=>$orderDdetail['gini'],
-                    'wastege_percentage'=>$orderDdetail['wastegePercentage'],
+                    'wastege_percentage'=>$orderDdetail['wastegePercentage']??100,
                     'product_size'=>$orderDdetail['productSize']
                 ]);
             }

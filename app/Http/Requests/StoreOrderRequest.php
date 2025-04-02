@@ -39,7 +39,7 @@ class StoreOrderRequest extends FormRequest
             'orderDetails.*.quantity' => 'required|integer|min:1',
             'orderDetails.*.gini' => 'required|numeric|min:1',
             'orderDetails.*.wastegePercentage' => 'numeric|between:2,10',
-            'orderDetails.*.productSize' => 'required|string|max:8',
+            'orderDetails.*.productSize' => 'sometimes|required|string|max:8',
         ];
     }
 }
