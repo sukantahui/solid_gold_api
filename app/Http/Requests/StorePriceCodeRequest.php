@@ -11,7 +11,7 @@ class StorePriceCodeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class StorePriceCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'priceCodeName' => 'required|string|max:2|unique:price_codes,price_code_name',
         ];
     }
 }

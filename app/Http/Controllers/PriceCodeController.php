@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\PriceCode;
 use App\Http\Requests\StorePriceCodeRequest;
 use App\Http\Requests\UpdatePriceCodeRequest;
+use App\Helper\ResponseHelper;
+use Exception;
 
 class PriceCodeController extends Controller
 {
@@ -29,16 +31,22 @@ class PriceCodeController extends Controller
      */
     public function store(StorePriceCodeRequest $request)
     {
-        //
+        try{
+            $priceCode = PriceCode::create([
+                'price_code_name'=>$request->priceCodeName
+            ]);
+
+            if($priceCode){
+                // Optionally, generate an authentication token for the user
+                return ResponseHelper::success('Price Code created', $priceCode,200);
+            }else{
+                return ResponseHelper::error('Failed to create Price Code');
+            }
+        }catch(Exception $e){
+            return ResponseHelper::error($e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(PriceCode $priceCode)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

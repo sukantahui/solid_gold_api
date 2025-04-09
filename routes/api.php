@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\PriceCodeController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Api\AuthController;
@@ -64,5 +65,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('orders', 'index');
     });
 
+    Route::controller(PriceCodeController::class)->group(function(){
+        Route::post('price-codes', 'store');
+        Route::get('orders', 'index');
+    });
 
 });
