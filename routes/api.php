@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::controller(PriceCodeController::class)->group(function(){
         Route::post('price-codes', 'store');
-        Route::get('orders', 'index');
+        Route::get('price-codes', 'index');
     });
 
 });

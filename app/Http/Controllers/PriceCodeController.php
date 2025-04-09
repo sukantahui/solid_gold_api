@@ -6,6 +6,7 @@ use App\Models\PriceCode;
 use App\Http\Requests\StorePriceCodeRequest;
 use App\Http\Requests\UpdatePriceCodeRequest;
 use App\Helper\ResponseHelper;
+use App\Http\Resources\PriceCodeResource;
 use Exception;
 
 class PriceCodeController extends Controller
@@ -15,7 +16,8 @@ class PriceCodeController extends Controller
      */
     public function index()
     {
-        //
+        $priceCodes = PriceCode::all();
+        return ResponseHelper::success('Price Code fetched', PriceCodeResource::collection($priceCodes),200);
     }
 
     /**
@@ -38,7 +40,7 @@ class PriceCodeController extends Controller
 
             if($priceCode){
                 // Optionally, generate an authentication token for the user
-                return ResponseHelper::success('Price Code created', $priceCode,200);
+                return ResponseHelper::success('Price Code created',new PriceCodeResource($priceCode),200);
             }else{
                 return ResponseHelper::error('Failed to create Price Code');
             }
