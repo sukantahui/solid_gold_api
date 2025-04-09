@@ -18,7 +18,7 @@ class CustomerResource extends JsonResource
             'customerId' => $this->id,
             'category' => [
                 'customerCategoryId' => $this->customer_category_id,
-                'name' => $this->category->customer_category_name ?? null,
+                'customerCategoryName' => $this->customerCategory->customer_category_name ?? null,
             ],
             'customerName' => $this->customer_name,
             'mailingName' => $this->mailing_name,
@@ -59,8 +59,8 @@ class CustomerResource extends JsonResource
     protected function getTimestamps(): array
     {
         return [
-            'createdAt' => $this->created_at?->format('d/m/Y H:i:s'),
-            'updatedAt' => $this->updated_at?->format('d/m/Y H:i:s'),
+            'createdAt' => $this->created_at?$this->created_at->format('Y-m-d H:i:s'):null,
+            'updatedAt' => $this->updated_at?$this->updated_at->format('Y-m-d H:i:s'):null,
         ];
     }
 }
