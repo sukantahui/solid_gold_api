@@ -1,0 +1,9 @@
+composer require --dev beyondcode/laravel-er-diagram-generator
+php artisan generate:erd
+
+
+https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/12.2.1/windows_10_cmake_Release_graphviz-install-12.2.1-win64.exe
+
+php artisan generate:erd --format=svg
+
+php artisan schema:dump

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class StoreGoldTransactionRequest extends FormRequest
 {
@@ -22,7 +24,25 @@ class StoreGoldTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+                'transactionDate' => 'required|date',
+                'customerId' => 'required|exists:customers,id',
+                'agentId' => 'required|exists:agents,id',
+                'orderMasterId' => 'required|exists:order_masters,id',
+                'goldValue' => [
+                    'required',
+                    'numeric',
+                    'min:0',
+                    'regex:/^\d+(\.\d{1,3})?$/' // Ensures max 3 decimal places
+                ],
+                'goldRate' => 'required|integer|min:0',
+                'goldCash' => 'required|integer|min:0',
+                'transactionTypeId' => [
+                    'required',
+                    'exists:transaction_types,id',
+                    Rule::exists('transaction_types')->where('inforce', true)
+                ],
+                'inforce' => 'sometimes|boolean'
+           
         ];
     }
 }
