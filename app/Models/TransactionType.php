@@ -9,4 +9,8 @@ class TransactionType extends Model
 {
     /** @use HasFactory<\Database\Factories\TransactionTypeFactory> */
     use HasFactory;
+    public function goldTransactions()
+    {
+        return $this->hasMany(GoldTransaction::class);
+    }
 }

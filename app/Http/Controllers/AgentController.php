@@ -6,6 +6,7 @@ use App\Helper\ResponseHelper;
 use App\Models\Agent;
 use App\Http\Requests\StoreAgentRequest;
 use App\Http\Requests\UpdateAgentRequest;
+use App\Http\Resources\AgentResource;
 use Exception;
 
 class AgentController extends Controller
@@ -15,8 +16,10 @@ class AgentController extends Controller
      */
     public function index()
     {
+
         $agents=Agent::all();
-        return ResponseHelper::success('success','Agents fetched successfully',$agents,200);
+        
+        return ResponseHelper::success('Agents fetched successfully',AgentResource::collection($agents),200);
     }
 
     /**
