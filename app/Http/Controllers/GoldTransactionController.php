@@ -35,11 +35,11 @@ class GoldTransactionController extends Controller
                 'transaction_date'=>$request->transactionDate,
                 'customer_id'=>$request->customerId,
                 'agent_id'=>$request->agentId,
-                'order_master_id'=>$request->ordermasterId,
+                'order_master_id'=>$request->orderMasterId,
                 'gold_value'=>$request->goldValue,
                 'gold_rate'=>$request->goldRate,
                 'gold_cash'=>$request->goldRate,
-
+                'transaction_type_id'=>$request->transactionTypeId,
             ]);
             DB::commit();
             return ResponseHelper::success('Order created', $transactions, 200);
