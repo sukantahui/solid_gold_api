@@ -9,4 +9,5 @@ class GoldTransaction extends Model
 {
     /** @use HasFactory<\Database\Factories\GoldTransactionFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
 }
