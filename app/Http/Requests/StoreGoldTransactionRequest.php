@@ -36,13 +36,8 @@ class StoreGoldTransactionRequest extends FormRequest
                 ],
                 'goldRate' => 'required|integer|min:0',
                 'goldCash' => 'required|integer|min:0',
-                'transactionTypeId' => [
-                    'required',
-                    'exists:transaction_types,id',
-                    Rule::exists('transaction_types')->where('inforce', true)
-                ],
+                'transactionTypeId' => 'required|exists:transaction_types,id',
                 'inforce' => 'sometimes|boolean'
-           
         ];
     }
 }
