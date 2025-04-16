@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\GoldTransactionController;
 use App\Http\Controllers\ProductCategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,6 +69,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::controller(PriceCodeController::class)->group(function(){
         Route::post('price-codes', 'store');
         Route::get('price-codes', 'index');
+    });
+
+    Route::controller(GoldTransactionController::class)->group(function(){
+        Route::post('gold-transactions', 'store');
+        Route::get('gold-transactions', 'index');
     });
 
 });

@@ -14,6 +14,7 @@ use App\Models\Customer;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Employee;
+use App\Models\TransactionType;
 use App\Models\User;
 use App\Models\UserType;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -203,7 +204,15 @@ class DatabaseSeeder extends Seeder
             'price_code_id' => 2,
         ]);
 
-
+        TransactionType::create([
+            'transaction_type_name'=>'Fine Gold Received From Customer'
+        ]);
+        TransactionType::create([
+            'transaction_type_name'=>'Fine Gold Returned to Customer'
+        ]);
+        TransactionType::create([
+            'transaction_type_name'=>'Fine Gold from customer Customer in cash'
+        ]);
 
     }
 }
