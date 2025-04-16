@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
 use App\Helper\CommonHelper;
 use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class OrderController extends Controller
 {

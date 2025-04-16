@@ -8,6 +8,8 @@ use App\Http\Requests\UpdatePriceCodeRequest;
 use App\Helper\ResponseHelper;
 use App\Http\Resources\PriceCodeResource;
 use Exception;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PriceCodeController extends Controller
 {

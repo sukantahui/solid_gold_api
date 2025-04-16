@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Helper\ResponseHelper;
 use App\Models\GoldTransaction;
 use App\Http\Requests\StoreGoldTransactionRequest;
@@ -9,6 +11,7 @@ use App\Http\Requests\UpdateGoldTransactionRequest;
 use Illuminate\Support\Facades\DB;  // Add this import
 use Illuminate\Support\Facades\Log;
 use Exception;
+
 
 class GoldTransactionController extends Controller
 {
@@ -18,8 +21,7 @@ class GoldTransactionController extends Controller
     public function index()
     {
         $transactions = GoldTransaction::all();
-        return ResponseHelper::success('Gold Transaction fetchedd', $transactions,200);
-
+        return ResponseHelper::success('Gold Transaction fetchedd', $transactions, 200);
     }
 
 
@@ -30,35 +32,27 @@ class GoldTransactionController extends Controller
     public function store(StoreGoldTransactionRequest $request)
     {
         DB::beginTransaction();
-        try{
-            $transactions = GoldTransaction::create([
-                'transaction_date'=>$request->transactionDate,
-                'customer_id'=>$request->customerId,
-                'agent_id'=>$request->agentId,
-                'order_master_id'=>$request->orderMasterId,
-                'gold_value'=>$request->goldValue,
-                'gold_rate'=>$request->goldRate,
-                'gold_cash'=>$request->goldRate,
-                'transaction_type_id'=>$request->transactionTypeId,
-            ]);
+        try {
+            // Data will already be validated and converted to snake_case
+            $validated = $request->validated();
+            // Create transaction
+            $transaction = GoldTransaction::create($validated);
             DB::commit();
-            return ResponseHelper::success('Order created', $transactions, 200);
-        }catch (ModelNotFoundException $e) {
+            return ResponseHelper::success('Order created', $transaction->fresh(), 200);
+        } catch (ModelNotFoundException $e) {
             DB::rollBack();
             Log::error("Module not found: {$e->getMessage()}");
             return ResponseHelper::error('Module not found', 404);
-
         } catch (QueryException $e) {
             DB::rollBack();
             Log::error("Database error updating Order: {$e->getMessage()}");
             return ResponseHelper::error('Failed to update Order due to database error', $e->getMessage(), 500);
-
         } catch (Exception $e) {
             DB::rollBack();
             Log::error("Error updating Order: {$e->getMessage()}");
             return ResponseHelper::error('Failed to update Order', $e->getMessage(), 500);
         }
-        return ResponseHelper::success('Gold Transaction saving', [],200);
+        return ResponseHelper::success('Gold Transaction saving', [], 200);
     }
 
     /**

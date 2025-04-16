@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\TransactionType;
 use App\Http\Requests\StoreTransactionTypeRequest;
 use App\Http\Requests\UpdateTransactionTypeRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TransactionTypeController extends Controller
 {

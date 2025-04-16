@@ -13,18 +13,22 @@ return new class extends Migration
     {
         Schema::create('gold_transactions', function (Blueprint $table) {
             $table->id();
-            $table->date('transaction_date');
+            $table->date('transaction_date')->default(now()->toDateString())->comment('Date of transaction, without time');
             $table->foreignId('customer_id')->constrained('customers');
             $table->foreignId('agent_id')->constrained('agents');
-            $table->foreignId('order_master_id')->constrained('order_masters');
+            $table->foreignId('order_master_id')->nullable()->constrained('order_masters');
             $table->decimal('gold_value',10,3);
-            $table->integer('gold_rate')->comment('Rate of 10 Gram Gold');
-            $table->integer('gold_cash')->comment('When value received in cas instead of gold');
+            $table->integer('gold_rate')->nullable()->comment('Rate of 10 Gram Gold');
+            $table->integer('gold_cash')->nullable()->comment('When value received in cas instead of gold');
 
             $table->foreignId('transaction_type_id')->constrained('transaction_types')->restrictOnDelete();
 
             $table->boolean('inforce')->default(true);
             $table->timestamps();
+
+            $table->index('transaction_date');
+            $table->index('customer_id');
+            $table->index('agent_id');
         });
     }
 

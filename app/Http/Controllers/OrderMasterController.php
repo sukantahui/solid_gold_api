@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\OrderMaster;
 use App\Http\Requests\StoreOrderMasterRequest;
 use App\Http\Requests\UpdateOrderMasterRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class OrderMasterController extends Controller
 {

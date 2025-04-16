@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\CustomVoucher;
 use App\Http\Requests\StoreCustomVoucherRequest;
 use App\Http\Requests\UpdateCustomVoucherRequest;
-
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CustomVoucherController extends Controller
 {

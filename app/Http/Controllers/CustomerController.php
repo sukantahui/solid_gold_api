@@ -11,7 +11,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;  // Add this import
 use Illuminate\Support\Facades\Log; // Add this import
 use Exception;
-
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CustomerController extends Controller
 {

@@ -13,6 +13,8 @@ use Illuminate\Support\Str;
 use Exception;
 use App\Http\Resources\CustomerCategoryResource;
 use Illuminate\Http\Response;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CustomerCategoryController extends Controller
 {

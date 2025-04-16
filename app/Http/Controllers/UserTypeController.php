@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\UserType;
 use App\Http\Requests\StoreUserTypeRequest;
 use App\Http\Requests\UpdateUserTypeRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserTypeController extends Controller
 {

@@ -11,6 +11,8 @@ use App\Http\Resources\ProductCategoryResource;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;  // Add this import
 use Illuminate\Support\Facades\Log; // Add this import
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProductCategoryController extends Controller
 {

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Designation;
 use App\Http\Requests\StoreDesignationRequest;
 use App\Http\Requests\UpdateDesignationRequest;
-
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 class DesignationController extends Controller
 {
     /**

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ProductRate;
 use App\Http\Requests\StoreProductRateRequest;
 use App\Http\Requests\UpdateProductRateRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProductRateController extends Controller
 {

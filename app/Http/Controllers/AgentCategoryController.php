@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\AgentCategory;
 use App\Http\Requests\StoreAgentCategoryRequest;
 use App\Http\Requests\UpdateAgentCategoryRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AgentCategoryController extends Controller
 {
