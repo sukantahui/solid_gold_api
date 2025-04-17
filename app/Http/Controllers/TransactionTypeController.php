@@ -15,40 +15,26 @@ class TransactionTypeController extends Controller
      */
     public function index()
     {
-        //
+        return TransactionType::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreTransactionTypeRequest $request)
     {
-        //
+        $gold=$request->validated();
+        return $gold;
+        $transactionType = TransactionType::create();
+        return $transactionType;
+
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(TransactionType $transactionType)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(TransactionType $transactionType)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
