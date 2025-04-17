@@ -38,7 +38,7 @@ class GoldTransactionController extends Controller
             // Create transaction
             $transaction = GoldTransaction::create($validated);
             DB::commit();
-            return ResponseHelper::success('Order created', $transaction->fresh(), 200);
+            
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             Log::error("Module not found: {$e->getMessage()}");
@@ -52,31 +52,19 @@ class GoldTransactionController extends Controller
             Log::error("Error updating Order: {$e->getMessage()}");
             return ResponseHelper::error('Failed to update Order', $e->getMessage(), 500);
         }
-        return ResponseHelper::success('Gold Transaction saving', [], 200);
+        return ResponseHelper::success('Order created', $transaction->fresh(), 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(GoldTransaction $goldTransaction)
+  
+    public function update(UpdateGoldTransactionRequest $request, $id)
     {
-        //
-    }
+        $transaction = GoldTransaction::findOrFail($id);
+        $transaction->update($request->validated());
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(GoldTransaction $goldTransaction)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateGoldTransactionRequest $request, GoldTransaction $goldTransaction)
-    {
-        //
+        return response()->json([
+            'message' => 'Gold transaction updated successfully.',
+            'data' => $transaction,
+        ]);
     }
 
     /**
