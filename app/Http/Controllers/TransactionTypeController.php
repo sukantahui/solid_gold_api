@@ -28,8 +28,8 @@ class TransactionTypeController extends Controller
     {
         $gold=$request->validated();
         return $gold;
-        $transactionType = TransactionType::create();
-        return $transactionType;
+        // $transactionType = TransactionType::create();
+        // return $transactionType;
 
     }
 

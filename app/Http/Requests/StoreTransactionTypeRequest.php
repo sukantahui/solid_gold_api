@@ -3,9 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\ConvertsCamelToSnake;
 
 class StoreTransactionTypeRequest extends FormRequest
 {
+    use ConvertsCamelToSnake;
     public function authorize(): bool
     {
         // Add authorization logic here, if needed
@@ -33,10 +35,12 @@ class StoreTransactionTypeRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        // Convert camelCase to snake_case for database compatibility
-        $this->merge([
-            'transaction_type_name' => $this->transactionTypeName,
-            'inforce' => $this->inforce ?? true,  // Default to true if not provided
-        ]);
+        // Automatically convert all camelCase inputs to snake_case
+        $this->merge($this->convertCamelToSnake($this->all()));
+
+        // Ensure inforce has a default value if not set
+        if (!$this->has('inforce')) {
+            $this->merge(['inforce' => true]);
+        }
     }
 }
