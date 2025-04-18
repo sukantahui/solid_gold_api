@@ -17,8 +17,8 @@ class StoreTransactionTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'transactionTypeName' => 'required|string|max:255|unique:transaction_types,transaction_type_name',
-            'inforce' => 'nullable|boolean',  // Optional, defaults to true if not set
+            'transaction_type_name' => 'required|string|max:255|unique:transaction_types,transaction_type_name',
+            'inforce' => 'nullable|boolean',
         ];
     }
 

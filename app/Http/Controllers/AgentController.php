@@ -61,21 +61,8 @@ class AgentController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Agent $agent)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Agent $agent)
-    {
-        //
-    }
+  
 
     /**
      * Update the specified resource in storage.

@@ -27,9 +27,9 @@ class TransactionTypeController extends Controller
     public function store(StoreTransactionTypeRequest $request)
     {
         $gold=$request->validated();
-        return $gold;
-        // $transactionType = TransactionType::create();
-        // return $transactionType;
+        
+        $transactionType = TransactionType::create($gold);
+        return $transactionType;
 
     }
 
