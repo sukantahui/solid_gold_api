@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\ResponseHelper;
+use App\Http\Resources\DepartmentResource;
 use App\Models\Department;
 use App\Http\Requests\StoreDepartmentRequest;
 use App\Http\Requests\UpdateDepartmentRequest;
@@ -14,23 +16,27 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $departments = Department::all();
+        if ($departments->isEmpty()) {
+            return ResponseHelper::error("No departments found", null, 404);
+        }
+        return ResponseHelper::success("Departments retrieved successfully",DepartmentResource::collection($departments));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreDepartmentRequest $request)
     {
-        //
+    
+        $department = Department::create($request->validated());
+
+        if ($department) {
+            return ResponseHelper::success("Department created successfully", new DepartmentResource($department),201);
+        } else {
+            return ResponseHelper::error("Failed to create department", null, 500);
+        }
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PriceCode;
+use App\Traits\HandlesTransactions;
 use App\Http\Requests\StorePriceCodeRequest;
 use App\Http\Requests\UpdatePriceCodeRequest;
 use App\Helper\ResponseHelper;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PriceCodeController extends Controller
 {
+    use HandlesTransactions;
     /**
      * Display a listing of the resource.
      */
@@ -35,20 +37,17 @@ class PriceCodeController extends Controller
      */
     public function store(StorePriceCodeRequest $request)
     {
-        try{
-            $priceCode = PriceCode::create([
-                'price_code_name'=>$request->priceCodeName
-            ]);
-
-            if($priceCode){
-                // Optionally, generate an authentication token for the user
-                return ResponseHelper::success('Price Code created',new PriceCodeResource($priceCode),200);
-            }else{
-                return ResponseHelper::error('Failed to create Price Code');
-            }
-        }catch(Exception $e){
-            return ResponseHelper::error($e->getMessage());
-        }
+        return $this->executeInTransaction(function() use ($request) {
+            
+            
+            $priceCode = PriceCode::create($request->validated());
+            // $priceCode = PriceCode::create([
+            //     'price_code_name'=>$request->priceCodeName
+            // ]);
+            return ResponseHelper::success('Created', $priceCode->fresh(), 201);
+        });
+        
+        
     }
 
 

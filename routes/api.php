@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PriceCodeController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\OrderController;
@@ -79,6 +80,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::controller(TransactionTypeController::class)->group(function(){
         Route::get('transaction-types','index');
         Route::post('transaction-types','store');
+    });
+    //department
+    Route::controller(DepartmentController::class)->group(function(){
+        Route::get('departments','index');
+        Route::post('departments','store');
     });
 
 

@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\ConvertsCamelToSnake;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
-class StorePriceCodeRequest extends FormRequest
+class StoreDepartmentRequest extends FormRequest
 {
     use ConvertsCamelToSnake;
     /**
@@ -24,16 +25,20 @@ class StorePriceCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price_code_name' => 'required|string|max:2|unique:price_codes,price_code_name',
+
+            'department_name' => 'required|string|max:255|unique:departments,department_name',
+        
         ];
     }
+    
     protected function prepareForValidation()
     {
         // Convert camelCase to snake_case before validation
         $this->merge($this->convertCamelToSnake($this->all()));
         // Ensure inforce has a default value if not set
-        if (!$this->has('inforce')) {
-            $this->merge(['inforce' => true]);
-        }
     }
+   
+
+
+    
 }
