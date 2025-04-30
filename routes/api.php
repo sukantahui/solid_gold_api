@@ -11,6 +11,7 @@ use App\Http\Controllers\GoldTransactionController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\TransactionTypeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -86,6 +87,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('departments','index');
         Route::post('departments','store');
     });
-
+    Route::controller(ProductController::class)->group(function(){
+        Route::get('products','index');
+        Route::post('products','store');
+    });
 
 });

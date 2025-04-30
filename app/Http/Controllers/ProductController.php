@@ -7,6 +7,9 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Resources\ProductResource;
+use App\Helper\ResponseHelper;
+
 
 class ProductController extends Controller
 {
@@ -15,10 +18,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        if (($products->isEmpty())){
+          return ResponseHelper::error("No products found", null, 404);
+        }
+        return ResponseHelper::success("products retrieved successfully",data: ProductResource::collection(resource: $products));
     }
-
-    /**
+            
+      
+     /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -31,7 +39,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        return "Product created successfully";
     }
 
     /**
