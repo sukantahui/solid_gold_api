@@ -72,7 +72,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::controller(PriceCodeController::class)->group(function(){
         Route::post('price-codes', 'store');
         Route::get('price-codes', 'index');
-        Route::put('price-codes/{price_code_id}', 'update');
+        Route::put('price-codes/{priceCodeId}', 'update');
+        Route::delete('price-codes/{priceCodeId}', 'destroy');
     });
 
     Route::controller(GoldTransactionController::class)->group(function(){

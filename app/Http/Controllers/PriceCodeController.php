@@ -59,24 +59,49 @@ class PriceCodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePriceCodeRequest $request, $id)
+    public function update(UpdatePriceCodeRequest $request, $priceCodeId)
     {
-        return $this->executeInTransaction(function() use ($request, $id) {
-            $priceCode = PriceCode::findOrFail($id);
+        return $this->executeInTransaction(function() use ($request, $priceCodeId) {
+            $priceCode = PriceCode::findOrFail($priceCodeId);
             $priceCode->update($request->validated());
             
             return ResponseHelper::success('Updated', $priceCode->fresh(), 200);
-        }, [
-            'price_code_id' => $id,
-            'action' => 'price_code_update'
-        ]);
+        });
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PriceCode $priceCode)
+    public function destroy($priceCodeId)
     {
-        //
+        return $this->executeInTransaction(function() use ($priceCodeId) {
+            $priceCode = PriceCode::findOrFail($priceCodeId);
+            
+            // Check if deletable
+            if ($this->isDeletable($priceCode)) {
+                $priceCode->delete();
+                return ResponseHelper::success('Price code deleted', [], 200);
+            }
+            
+            return ResponseHelper::error(
+                'Cannot delete - price code is in use', 
+                ['references' => $this->getReferences($priceCode)],
+                409
+            );
+        });
+    }
+    protected function isDeletable(PriceCode $priceCode): bool
+    {
+        // Example checks (customize based on your relationships)
+        return !$priceCode->products()->exists()
+                && !$priceCode->productRates()->exists();
+    }
+
+    protected function getReferences(PriceCode $priceCode): array
+    {
+        return [
+            'product_count' => $priceCode->products()->count(),
+            'product_rate_count' => $priceCode->productRates()->count()
+        ];
     }
 }
