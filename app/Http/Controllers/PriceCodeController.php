@@ -41,9 +41,6 @@ class PriceCodeController extends Controller
             
             
             $priceCode = PriceCode::create($request->validated());
-            // $priceCode = PriceCode::create([
-            //     'price_code_name'=>$request->priceCodeName
-            // ]);
             return ResponseHelper::success('Created', $priceCode->fresh(), 201);
         });
         
@@ -62,9 +59,17 @@ class PriceCodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePriceCodeRequest $request, PriceCode $priceCode)
+    public function update(UpdatePriceCodeRequest $request, $id)
     {
-        //
+        return $this->executeInTransaction(function() use ($request, $id) {
+            $priceCode = PriceCode::findOrFail($id);
+            $priceCode->update($request->validated());
+            
+            return ResponseHelper::success('Updated', $priceCode->fresh(), 200);
+        }, [
+            'price_code_id' => $id,
+            'action' => 'price_code_update'
+        ]);
     }
 
     /**

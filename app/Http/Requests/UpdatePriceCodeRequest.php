@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
-
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePriceCodeRequest extends FormRequest
@@ -11,7 +11,7 @@ class UpdatePriceCodeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class UpdatePriceCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'price_code_name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('price_codes')->ignore($this->route('id')) // For route model binding
+                // If using ID parameter instead, use:
+                // Rule::unique('price_codes')->ignore($this->route('id'))
+            ],
+            'inforce' => [
+                'sometimes', // The field is optional
+                'boolean'
+            ]
         ];
     }
 }
