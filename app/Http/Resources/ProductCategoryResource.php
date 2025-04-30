@@ -16,12 +16,16 @@ class ProductCategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'productCategoryId' => $this->id,
             'categoryName' => $this->product_category_name,
             'description' => $this->product_category_description,
             'isInforce' => $this->inforce,
             'createdAt' => Carbon::parse($this->created_at)->format('d-m-Y H:i:s'),
-            'updatedAt' => Carbon::parse($this->updated_at)->format('d-m-Y H:i:s')
+            'updatedAt' => Carbon::parse($this->updated_at)->format('d-m-Y H:i:s'),
+            // Relationships (uncomment if needed)
+            'productsCount' => $this->whenCounted('products', function () {
+                return $this->products_count;
+            }),
         ];
     }
 }

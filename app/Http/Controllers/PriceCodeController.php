@@ -8,6 +8,7 @@ use App\Http\Requests\StorePriceCodeRequest;
 use App\Http\Requests\UpdatePriceCodeRequest;
 use App\Helper\ResponseHelper;
 use App\Http\Resources\PriceCodeResource;
+use App\Http\Resources\ProductCategoryResource;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -38,10 +39,8 @@ class PriceCodeController extends Controller
     public function store(StorePriceCodeRequest $request)
     {
         return $this->executeInTransaction(function() use ($request) {
-            
-            
             $priceCode = PriceCode::create($request->validated());
-            return ResponseHelper::success('Created', $priceCode->fresh(), 201);
+            return ResponseHelper::success('Created',$priceCode->fresh(), 201);
         });
         
         
