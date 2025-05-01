@@ -27,13 +27,13 @@ class StoreEmployeeRequest extends FormRequest
         return [
             'department_id' => [
                 'required',
-                'number',
+                'numeric',
                 'min:1',
                 Rule::exists('departments', 'id')
             ],
             'designation_id' => [
                 'required',
-                'number',
+                'numeric',
                 'min:1',
                 Rule::exists('designations', 'id')
             ],

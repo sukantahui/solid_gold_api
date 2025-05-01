@@ -101,5 +101,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('employees','index');
         Route::get('employees/{id}','show');
         Route::post('employees','store');
+        Route::put('employees/{employeeId}','update');
+        Route::delete('employees/{employeeId}','destroy');
     });
 });

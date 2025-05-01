@@ -18,13 +18,17 @@ class EmployeeResource extends JsonResource
     {
         return [
             'employeeId'=>$this->id,
-            'employeeName'=>$this->employee_nme,
-            'mobile'=>$this->mobile,
-            'email'=>$this->email,
-            'departmentId'=>$this->department_id,
-            'designationId'=>$this->designation_id,
-            'department'=>new DepartmentResource($this->department),
-            'designation'=>new DesignationResource($this->designation),
+            'employeeName' => $this->employee_name,
+            'mobile' => $this->mobile,
+            'email' => $this->email,
+            'department' => [
+                'departmenntId' => $this->department->id ?? null,
+                'name' => $this->department->department_name ?? null,
+            ],
+            'designation' => [
+                'designationId' => $this->designation->id ?? null,
+                'name' => $this->designation->designation_name ?? null,
+            ],
             'createdAt' => $this->created_at?$this->created_at->format('Y-m-d H:i:s'):null,
             'updatedAt' => $this->updated_at?$this->updated_at->format('Y-m-d H:i:s'):null,
         ];
