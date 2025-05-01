@@ -86,10 +86,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::controller(DepartmentController::class)->group(function(){
         Route::get('departments','index');
         Route::post('departments','store');
+        Route::put('departments','update');
     });
     Route::controller(ProductController::class)->group(function(){
         Route::get('products','index');
         Route::post('products','store');
-    });
 
+    });
 });

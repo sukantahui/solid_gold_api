@@ -50,17 +50,21 @@ class DepartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Department $department)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateDepartmentRequest $request, Department $department)
     {
-        //
+        $dept = Department::findOrFail($request->id);
+        // return $request->validated();
+        $dept->update($request->validated());
+        return $dept;
+
+
+    //     Department::where('id', $request->id)->update([
+    //     'department_name' => $request->departmentName,
+    // ]);
+    //    return $request->id;
     }
 
     /**
