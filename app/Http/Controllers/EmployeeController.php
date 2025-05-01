@@ -25,7 +25,7 @@ class EmployeeController extends Controller
         if ($employees->isEmpty()) {
             return ResponseHelper::error("No employees found", null, statusCode: 404);
         }
-        return ResponseHelper::success("employees retrieved successfully",$employees);
+        return ResponseHelper::success("employees retrieved successfully",EmployeeResource::collection($employees));
 
     }
 

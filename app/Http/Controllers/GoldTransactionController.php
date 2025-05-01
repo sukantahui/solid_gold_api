@@ -9,7 +9,7 @@ use App\Helper\ResponseHelper;
 use App\Models\GoldTransaction;
 use App\Http\Requests\StoreGoldTransactionRequest;
 use App\Http\Requests\UpdateGoldTransactionRequest;
-
+use App\Http\Resources\GoldTransactionResource;
 use Exception;
 
 
@@ -35,7 +35,8 @@ class GoldTransactionController extends Controller
        
         return $this->executeInTransaction(function() use ($request) {
             $transaction = GoldTransaction::create($request->validated());
-            return ResponseHelper::success('Created', $transaction->fresh(), 201);
+            $transaction->load(['customer', 'agent', 'orderMaster', 'transactionType']);
+            return ResponseHelper::success('Created', new GoldTransactionResource($transaction), 201);
         });
 
     }
