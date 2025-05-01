@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PriceCodeController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\OrderController;
@@ -95,6 +96,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('products','index');
         Route::get('products/category/{productCategoryId}','products_by_category');
         Route::post('products','store');
-
+    });
+    Route::controller(EmployeeController::class)->group(function(){
+        Route::get('employees','index');
+        Route::get('employees/{id}','show');
+        Route::post('employees','store');
     });
 });
