@@ -61,10 +61,10 @@ class ProductCategoryController extends Controller
      */
     public function update(UpdateProductCategoryRequest $request, $productCategoryId)
     {
+        
         return $this->executeInTransaction(function() use ($request, $productCategoryId) {
             $productCategory = ProductCategory::findOrFail($productCategoryId);
             $productCategory->update($request->validated());
-            
             return ResponseHelper::success('Updated', new ProductCategoryResource($productCategory->fresh()), 200);
         });
     }

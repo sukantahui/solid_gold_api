@@ -53,14 +53,14 @@ class UpdateProductCategoryRequest extends FormRequest
 {
     return [
         // Category Name messages
-        'productCategoryName.required' => 'A category name is required for update',
-        'productCategoryName.string' => 'Category name must be a valid text string',
-        'productCategoryName.max' => 'Category name cannot be longer than 255 characters',
-        'productCategoryName.unique' => 'This category name is already being used by another category',
+        'product_category_name.required' => 'A category name is required for update',
+        'product_category_name.string' => 'Category name must be a valid text string',
+        'product_category_name.max' => 'Category name cannot be longer than 255 characters',
+        'product_category_name.unique' => 'This category name is already being used by another category',
 
         // Description messages
-        'productCategoryDescription.string' => 'Description must be in text format',
-        'productCategoryDescription.max' => 'Description cannot exceed 1000 characters',
+        'product_category_cescription.string' => 'Description must be in text format',
+        'product_category_cescription.max' => 'Description cannot exceed 1000 characters',
 
         // Status messages
         'inforce.boolean' => 'Active status must be either true or false',

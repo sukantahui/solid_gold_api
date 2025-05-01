@@ -24,7 +24,14 @@ class ProductController extends Controller
         }
         return ResponseHelper::success("products retrieved successfully",data: ProductResource::collection(resource: $products));
     }
-            
+    
+    function products_by_category($productCategoryId){
+        $products = Product::where('product_category_id', $productCategoryId)->get();
+        if (($products->isEmpty())){
+          return ResponseHelper::error("No products found", null, 404);
+        }
+        return ResponseHelper::success("products retrieved successfully",data: ProductResource::collection(resource: $products));
+    }
       
      /**
      * Show the form for creating a new resource.

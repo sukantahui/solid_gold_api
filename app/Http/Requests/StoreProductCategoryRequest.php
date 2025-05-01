@@ -24,6 +24,7 @@ class StoreProductCategoryRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
+                'min:3',
                 Rule::unique('product_categories', 'product_category_name')
             ],
             'product_category_description' => [
@@ -46,10 +47,11 @@ class StoreProductCategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'productCategoryName.required' => 'The category name is required',
-            'productCategoryName.string' => 'The category name must be text',
-            'productCategoryName.max' => 'The category name cannot exceed 255 characters',
-            'productCategoryName.unique' => 'This category name already exists',
+            'product_category_name.required' => 'The category name is required',
+            'product_category_name.string' => 'The category name must be text',
+            'product_category_name.max' => 'The category name cannot exceed 255 characters',
+            'product_category_name.min' => 'Category name must be at least 3 characters',
+            'product_category_name.unique' => 'This category name already exists',
             'productCategoryDescription.string' => 'The description must be text',
             'productCategoryDescription.max' => 'The description cannot exceed 1000 characters',
         ];
