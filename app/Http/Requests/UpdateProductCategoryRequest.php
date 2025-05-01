@@ -2,10 +2,14 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\ConvertsCamelToSnake;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator; 
+
 class UpdateProductCategoryRequest extends FormRequest
 {
+    use ConvertsCamelToSnake;
     public function authorize()
     {
         return true; // Change this if you need authorization
@@ -13,17 +17,36 @@ class UpdateProductCategoryRequest extends FormRequest
 
     public function rules()
     {
+        $productCategoryId = $this->route('productCategoryId');
+
+        // First validate that the ID exists
+        Validator::make(
+            ['productCategoryId' => $productCategoryId], 
+            ['productCategoryId' => 'required|exists:product_categories,id']
+        )->validate();
+        
         return [
-            'productCategoryName' => [
+            'product_category_name' => [
                 'sometimes',
                 'string',
                 'max:255',
                 Rule::unique('product_categories', 'product_category_name')
-                    ->ignore($this->id)
+                    ->ignore($productCategoryId)
             ],
-            'productCategoryDescription' => 'nullable|string|max:1000',
+            'product_category_cescription' => 'nullable|string|max:1000',
             'inforce' => 'sometimes|boolean',
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        // Automatically convert all camelCase inputs to snake_case
+        $this->merge($this->convertCamelToSnake($this->all()));
+
+        // Ensure inforce has a default value if not set
+        if (!$this->has('inforce')) {
+            $this->merge(['inforce' => true]);
+        }
     }
 
     public function messages()

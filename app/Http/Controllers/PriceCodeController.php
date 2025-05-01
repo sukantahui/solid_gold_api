@@ -8,6 +8,7 @@ use App\Http\Requests\StorePriceCodeRequest;
 use App\Http\Requests\UpdatePriceCodeRequest;
 use App\Helper\ResponseHelper;
 use App\Http\Resources\PriceCodeResource;
+use App\Http\Resources\ProductCategoryResource;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -38,13 +39,8 @@ class PriceCodeController extends Controller
     public function store(StorePriceCodeRequest $request)
     {
         return $this->executeInTransaction(function() use ($request) {
-            
-            
             $priceCode = PriceCode::create($request->validated());
-            // $priceCode = PriceCode::create([
-            //     'price_code_name'=>$request->priceCodeName
-            // ]);
-            return ResponseHelper::success('Created', $priceCode->fresh(), 201);
+            return ResponseHelper::success('Created',$priceCode->fresh(), 201);
         });
         
         
@@ -62,16 +58,49 @@ class PriceCodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePriceCodeRequest $request, PriceCode $priceCode)
+    public function update(UpdatePriceCodeRequest $request, $priceCodeId)
     {
-        //
+        return $this->executeInTransaction(function() use ($request, $priceCodeId) {
+            $priceCode = PriceCode::findOrFail($priceCodeId);
+            $priceCode->update($request->validated());
+            
+            return ResponseHelper::success('Updated', $priceCode->fresh(), 200);
+        });
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PriceCode $priceCode)
+    public function destroy($priceCodeId)
     {
-        //
+        return $this->executeInTransaction(function() use ($priceCodeId) {
+            $priceCode = PriceCode::findOrFail($priceCodeId);
+            
+            // Check if deletable
+            if ($this->isDeletable($priceCode)) {
+                $priceCode->delete();
+                return ResponseHelper::success('Price code deleted', [], 200);
+            }
+            
+            return ResponseHelper::error(
+                'Cannot delete - price code is in use', 
+                ['references' => $this->getReferences($priceCode)],
+                409
+            );
+        });
+    }
+    protected function isDeletable(PriceCode $priceCode): bool
+    {
+        // Example checks (customize based on your relationships)
+        return !$priceCode->products()->exists()
+                && !$priceCode->productRates()->exists();
+    }
+
+    protected function getReferences(PriceCode $priceCode): array
+    {
+        return [
+            'product_count' => $priceCode->products()->count(),
+            'product_rate_count' => $priceCode->productRates()->count()
+        ];
     }
 }

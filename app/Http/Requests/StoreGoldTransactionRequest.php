@@ -61,17 +61,6 @@ class StoreGoldTransactionRequest extends FormRequest
         if (!$this->has('inforce')) {
             $this->merge(['inforce' => true]);
         }
-
-        // $this->merge([
-        //     'transaction_date' => $this->transactionDate ?? $this->transaction_date,
-        //     'customer_id' => $this->customerId ?? $this->customer_id,
-        //     'agent_id' => $this->agentId ?? $this->agent_id,
-        //     'order_master_id' => $this->orderMasterId ?? $this->order_master_id,
-        //     'gold_value' => $this->goldValue ?? $this->gold_value,
-        //     'gold_rate' => $this->goldRate ?? $this->gold_rate,
-        //     'gold_cash' => $this->goldCash ?? $this->gold_cash,
-        //     'transaction_type_id' => $this->transactionTypeId ?? $this->transaction_type_id
-        // ]);
     }
 
     public function withValidator($validator)

@@ -58,10 +58,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
     Route::controller(ProductCategoryController::class)->group(function(){
-        Route::post('product-categories', 'store');
         Route::get('product-categories', 'index');
-        Route::put('product-categories/{id}', 'update');
-        Route::delete('product-categories/{id}', 'destroy');
+        Route::get('product-categories/{productCategoryId}', 'show');
+        Route::post('product-categories', 'store');
+        Route::put('product-categories/{productCategoryId}', 'update');
+        Route::delete('product-categories/{productCategoryId}', 'destroy');
     });
 
     Route::controller(OrderController::class)->group(function(){
@@ -72,6 +73,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::controller(PriceCodeController::class)->group(function(){
         Route::post('price-codes', 'store');
         Route::get('price-codes', 'index');
+        Route::put('price-codes/{priceCodeId}', 'update');
+        Route::delete('price-codes/{priceCodeId}', 'destroy');
     });
 
     Route::controller(GoldTransactionController::class)->group(function(){

@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\ConvertsCamelToSnake;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class StoreProductCategoryRequest extends FormRequest
 {
+    use ConvertsCamelToSnake;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -18,18 +20,27 @@ class StoreProductCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'productCategoryName' => [
+            'product_category_name' => [
                 'required',
                 'string',
                 'max:255',
                 Rule::unique('product_categories', 'product_category_name')
             ],
-            'productCategoryDescription' => [
+            'product_category_description' => [
                 'nullable',
                 'string',
                 'max:1000'
             ],
         ];
+    }
+    protected function prepareForValidation()
+    {
+        // Convert camelCase to snake_case before validation
+        $this->merge($this->convertCamelToSnake($this->all()));
+        // Ensure inforce has a default value if not set
+        if (!$this->has('inforce')) {
+            $this->merge(['inforce' => true]);
+        }
     }
 
     public function messages()
