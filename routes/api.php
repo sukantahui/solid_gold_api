@@ -97,11 +97,14 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('products/category/{productCategoryId}','products_by_category');
         Route::post('products','store');
     });
-    Route::controller(EmployeeController::class)->group(function(){
-        Route::get('employees','index');
-        Route::get('employees/{id}','show');
-        Route::post('employees','store');
-        Route::put('employees/{employeeId}','update');
-        Route::delete('employees/{employeeId}','destroy');
+
+    // for employees
+    
+    Route::controller(EmployeeController::class)->prefix('employees')->group(function(){
+        Route::get('/','index');
+        Route::get('/{id}','show');
+        Route::post('/','store');
+        Route::put('/{employeeId}','update');
+        Route::delete('/{employeeId}','destroy');
     });
 });

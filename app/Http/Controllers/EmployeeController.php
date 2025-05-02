@@ -5,13 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
-use Illuminate\Database\QueryException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Requests\EmployeeRequest;
 use App\Helper\ResponseHelper;
 use App\Http\Resources\EmployeeResource;
-use App\Requests\StoreEmployeeReques;
 use App\Traits\HandlesTransactions;
+
 class EmployeeController extends Controller
 {
     use HandlesTransactions;
@@ -21,20 +18,11 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::all();
+        $employees = Employee::with(['department', 'designation'])->get();
         if ($employees->isEmpty()) {
             return ResponseHelper::error("No employees found", null, statusCode: 404);
         }
-        return ResponseHelper::success("employees retrieved successfully",EmployeeResource::collection($employees));
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): void
-    {
-        //
+        return ResponseHelper::success("employees retrieved successfully", EmployeeResource::collection($employees));
     }
 
     /**
@@ -42,27 +30,19 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployeeRequest $request)
     {
-        return $this->executeInTransaction(function() use ($request) {
+        return $this->executeInTransaction(function () use ($request) {
             $employee = Employee::create($request->validated());
-            return ResponseHelper::success('Employee Created', new EmployeeResource($employee->fresh()), 201);
+            return ResponseHelper::success('Employee Created', EmployeeResource::make($employee->load(['department', 'designation'])), 201);
         });
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($employeeId)
     {
-        $employee = Employee::findOrFail($id);
-        return ResponseHelper::success('Employee found', new EmployeeResource($employee), 200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Employee $employee)
-    {
-        //
+        $employee = Employee::with(['department', 'designation'])->findOrFail($employeeId);
+        return ResponseHelper::success('Employee found', new EmployeeResource($this->loadRelations($employee)), 200);
     }
 
     /**
@@ -73,7 +53,7 @@ class EmployeeController extends Controller
         return $this->executeInTransaction(function () use ($request, $id) {
             $employee = Employee::findOrFail($id);
             $employee->update($request->validated());
-            return ResponseHelper::success('Employee updated', new EmployeeResource($employee->fresh()), 200);
+            return ResponseHelper::success('Employee updated', new EmployeeResource($this->loadRelations($employee->fresh())), 200);
         });
     }
 
@@ -82,22 +62,21 @@ class EmployeeController extends Controller
      */
     public function destroy($employeeId)
     {
-        return $this->executeInTransaction(function() use ($employeeId) {
+        return $this->executeInTransaction(function () use ($employeeId) {
             $employee = Employee::findOrFail($employeeId);
-            
+
             // Check if deletable
             if ($this->isDeletable($employee)) {
                 $employee->delete();
                 return ResponseHelper::success('Employee deleted', $employee, 200);
             }
-            
+
             return ResponseHelper::error(
-                'Cannot delete - Employee is in use', 
+                'Cannot delete - Employee is in use',
                 ['references' => $this->getReferences($employee)],
                 409
             );
         });
-        
     }
 
     protected function isDeletable(Employee $employee): bool
@@ -111,5 +90,10 @@ class EmployeeController extends Controller
         return [
             'user_count' => $employee->users()->count()
         ];
+    }
+
+    protected function loadRelations(Employee $employee): Employee
+    {
+        return $employee->load(['department', 'designation']);
     }
 }
