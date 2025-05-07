@@ -76,23 +76,25 @@ class AuthController extends Controller
 
     function getCurrentUser(){
 
-        $user=auth()->user();
+        $user=auth()->user();;
+        
         if(!$user){
                 return ResponseHelper::error('token expired',401);
         }else{
-                return ResponseHelper::success('success','User fetched',new UserResource($user),200);
+                
+                return ResponseHelper::success('User fetched',new UserResource($user),200);
         }
     }
     public function logout()
     {
         $user=auth()->user();
         $user->tokens()->delete();
-        return ResponseHelper::success(null, 'Logged out successfully',$user, 200);
+        return ResponseHelper::success('Logged out successfully',$user, 200);
     }
     public function revoke_all(){
         //revoke all tokens from current user
         $result = auth()->user()->tokens()->delete();
-        return ResponseHelper::success(null, 'Revoke all',$result, 200);
+        return ResponseHelper::success('Revoke all',$result, 200);
     }
 
 
