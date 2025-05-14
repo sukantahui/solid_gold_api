@@ -24,7 +24,7 @@ class CustomerCategoryController extends Controller
     public function index()
     {
         $categories = CustomerCategory::all();
-        return ResponseHelper::success('Customer fetchedd', $categories,200);
+        return ResponseHelper::success('Customer fetchedd',CustomerCategoryResource::collection($categories),200);
 
     }
 

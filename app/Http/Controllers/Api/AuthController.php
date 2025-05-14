@@ -58,7 +58,7 @@ class AuthController extends Controller
         try{
             // Attempt to authenticate the user
             if (!Auth::attempt($request->only('email', 'password'))) {
-                return ResponseHelper::error($e->getMessage(),null,401);
+                return ResponseHelper::error('Invalid credentials', null, 401);
             }
 
             // Get the authenticated user
