@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('customers', 'index');
         Route::get('customers/{id}', 'get_customer');
         Route::put('customers/{id}', 'update');
+        Route::delete('customers/{id}', 'destroy');
     });
 
     Route::controller(AgentController::class)->group(function(){

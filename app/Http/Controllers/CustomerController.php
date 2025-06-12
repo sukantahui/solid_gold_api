@@ -125,8 +125,28 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($is)
+    public function destroy($id)
     {
-        //
+        
+        try {
+            DB::beginTransaction();
+
+            $customer = Customer::findOrFail($id);
+
+            $customer->delete();
+
+            DB::commit();
+            return ResponseHelper::success('success','Customer deleted successfully.',200);
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            Log::error("Customer not found: " . $e->getMessage());
+            return ResponseHelper::error('Customer not found',null,200);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("Error deleting customer: " . $e->getMessage());
+            return ResponseHelper::error('Error deleting customer',500);
+        }
     }
 }
