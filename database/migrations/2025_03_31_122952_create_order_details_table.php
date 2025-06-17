@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('quantity')->nullable(false)->comment('Quantity of the product');
             $table->decimal('gini', 6, 3)->nullable(false)->comment('Expected gold of the product');
             $table->decimal('wastege_percentage', 5, 3)->nullable(false)->comment('wastage to be charged on the gold value');
-            $table->string('product_size')->nullable(false)->default('0-0-0');
+            $table->string('product_size',10)->nullable(false)->default('0-0-0');
             $table->timestamps();
         });
     }

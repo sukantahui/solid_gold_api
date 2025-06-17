@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('price_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('price_code_name')->unique()->nullable(false);
-            $table->boolean('inforce')->default(true);
+            $table->string('price_code_name',200)->unique()->nullable(false);
+            $table->boolean('inforce',200)->default(true);
             $table->timestamps();
         });
     }

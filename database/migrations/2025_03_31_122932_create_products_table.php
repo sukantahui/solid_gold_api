@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_category_id')->references('id')->on('product_categories');
-            $table->string('product_name')->unique()->nullable()->comment('Display name of the product');;
-            $table->string('product_number')->unique()->nullable();
+            $table->string('product_name',100)->unique()->nullable()->comment('Display name of the product');;
+            $table->string('product_number',100)->unique()->nullable();
             $table->foreignId('price_code_id')->constrained('price_codes')->restrictOnDelete();
             $table->timestamps();
         });

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('agent_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('agent_category_name')->unique();
+            $table->string('agent_category_name',200)->unique();
             $table->tinyInteger('inforce')->default(1);
             $table->timestamps();
         });
