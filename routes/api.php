@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('product-categories/{productCategoryId}', 'update');
         Route::delete('product-categories/{productCategoryId}', 'destroy');
     });
+    
 
     Route::controller(OrderController::class)->group(function(){
         Route::post('orders', 'save_order');
@@ -97,6 +98,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('products','index');
         Route::get('products/category/{productCategoryId}','products_by_category');
         Route::post('products','store');
+        Route::get('products/customer/{customerId}','getProductsByCustomer');
     });
 
     // for employees

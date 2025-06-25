@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -32,7 +33,32 @@ class ProductController extends Controller
         }
         return ResponseHelper::success("products retrieved successfully",data: ProductResource::collection(resource: $products));
     }
-      
+
+   function getProductsByCustomer($customerId){
+    $customer = Customer::with('customerCategory')->findOrFail($customerId);
+
+    $products = Product::join('product_rates', function ($join) use ($customer) {
+            $join->on('products.price_code_id', '=', 'product_rates.price_code_id')
+                 ->where('product_rates.customer_category_id', '=', $customer->customer_category_id);
+        })
+        ->join('price_codes', 'products.price_code_id', '=', 'price_codes.id')
+        ->leftJoin('product_categories', 'products.product_category_id', '=', 'product_categories.id')
+        ->select(
+            'products.id as product_id',
+            'products.product_name',
+            'products.product_number',
+            'products.product_category_id',
+            'products.price_code_id',
+            'price_codes.price_code_name',
+            'product_categories.product_category_name as product_category_name', // ✅ Corrected
+            'product_rates.wastege_percentage',
+            'product_rates.labour_charge'
+        )
+        ->get();
+
+    return ResponseHelper::success("products", data: ProductResource::collection($products));
+}
+
      /**
      * Show the form for creating a new resource.
      */

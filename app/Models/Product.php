@@ -14,7 +14,11 @@ class Product extends Model
     {
         return $this->belongsTo(ProductCategory::class);
     }
-
+    public function productRateForCustomerCategory($customerCategoryId)
+    {
+        return $this->hasOne(ProductRate::class, 'price_code_id', 'price_code_id')
+                ->where('customer_category_id', $customerCategoryId);
+    }
     public function priceCode()
     {
         return $this->belongsTo(PriceCode::class);
