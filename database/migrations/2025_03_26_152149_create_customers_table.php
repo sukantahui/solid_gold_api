@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_category_id')->constrained('customer_categories')->restrictOnDelete();
-            $table->unsignedBigInteger('agent_id')->default(1);
+            $table->unsignedBigInteger('agent_id')->nullable()->default(1);
             $table->foreign('agent_id')->references('id')->on('agents')->restrictOnDelete();
             $table->string('customer_name', 200)->unique();
             $table->string('mailing_name', 200);
@@ -25,16 +25,17 @@ return new class extends Migration
             $table->string('whatsapp', 15)->nullable();
             $table->string('address', 200);
             $table->string('pin_code', 20);
-            $table->decimal('opening_gold_balance')->default(0);
+            $table->decimal('opening_gold_balance', 8, 2)->default(0);
             $table->integer('opening_cash_balance')->default(0);
             $table->boolean('active')->default(true);
             $table->boolean('order_active')->default(true);
             $table->boolean('bill_active')->default(true);
             $table->boolean('job_active')->default(true);
             $table->boolean('inforce')->default(true);
+            $table->timestamps();
             //Optional but recommended for performance
             $table->index('customer_category_id'); // Foreign key index
-            $table->timestamps();
+            $table->index('agent_id');
         });
     }
 

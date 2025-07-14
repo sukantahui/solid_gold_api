@@ -39,7 +39,7 @@ class Customer extends Model
         'inforce' => 'boolean',
         // 'opening_gold_balance' => 'decimal:3',
         // PHP/Laravel is handling the decimal value cautiously to avoid precision loss, so use string for decimal
-        'opening_gold_balance' => 'float',
+        'opening_gold_balance' => 'decimal:2',
     ];
 
     public function getFormattedCreatedAtAttribute(): string
@@ -49,7 +49,7 @@ class Customer extends Model
             ->format('d/m/Y h:i A');   // Indian date/time format
     }
 
-   
+
     public function customerCategory()
     {
         return $this->belongsTo(CustomerCategory::class);
@@ -58,5 +58,9 @@ class Customer extends Model
     public function orderMasters()
     {
         return $this->hasMany(OrderMaster::class);
+    }
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class, 'agent_id');
     }
 }
